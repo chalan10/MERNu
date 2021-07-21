@@ -1,0 +1,56 @@
+#!/bin/bash
+# menudb
+
+# Stop on errors
+set -Eeuo pipefail
+
+# Sanity check command line options
+usage() {
+  echo "Usage: $0 (create|destroy|reset|dump)"
+}
+
+create() {
+	echo "+ sqlite3 var/menu.sqlite3 < sql/schema.sql"
+	sqlite3 var/menu.sqlite3 < sql/schema.sql
+	echo "+ sqlite3 var/menu.sqlite3 < sql/data.sql"
+	sqlite3 var/menu.sqlite3 < sql/data.sql
+}
+
+destroy() {
+	echo "+ rm -rf var/menu.sqlite3"
+	rm -rf var/menu.sqlite3
+}
+
+dump() {
+	echo "+ sqlite3 -batch -line var/menu.sqlite3 'SELECT * FROM users'"
+	sqlite3 -batch -line var/menu.sqlite3 'SELECT * FROM users'
+}
+
+if [ $# -ne 1 ]; then
+  usage
+  exit 1
+fi
+
+# Parse argument.  $1 is the first argument
+case $1 in
+  "create")
+	create
+    ;;
+
+  "destroy")
+	destroy
+    ;;
+
+  "reset")
+	destroy
+	create
+    ;;
+
+  "dump")
+	dump
+    ;;
+  *)
+    usage
+    exit 1
+    ;;
+esac
