@@ -1,0 +1,18 @@
+#!/bin/bash
+# run
+
+# Stop on errors
+set -Eeuo pipefail
+
+if [ ! -f bin/database ]
+then
+	bin/database create
+	echo "bin/database create"
+fi
+
+export FLASK_DEBUG=True
+export API_SETTINGS=config.py
+export FLASK_ENV=development
+export FLASK_APP=api
+
+flask run
