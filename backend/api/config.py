@@ -15,5 +15,5 @@ API_ROOT = pathlib.Path(__file__).resolve().parent.parent
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 MAX_CONTENT_LENGTH = 16 * 1024 * 1024
 
-# Database file is var/menu.sqlite3
+# Database file is sql/database.sqlite3
 DATABASE_FILENAME = API_ROOT/'sql'/'database.sqlite3'
