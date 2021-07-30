@@ -1,30 +1,59 @@
 import React from "react";
-import './Login.css';
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Customer from "./Customer.js";
+import Restaurant from "./Restaurant.js";
+import Create from "./Create.js";
+import "./Login.css";
 
 class Login extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			username: "user",
-			password: "pass",
+			username: "",
+			password: "",
 		};
 	}
 
+	/*
+	sendLogin() => {
+		var data = {
+			"username": this.state.username,
+			"password": this.state.password
+		};
+		fetch("/login/")
+		);
+	}
+	*/
+
+	// TODO: have a redirect to create acc
+	//<p>Hello, {this.state.username}!</p>
 	render() {
 		return(
-			<div className="Login">
-				<h2 className="Login-header">
-				Login Page
-				<p>Hello, {this.state.username}!</p>
-				<form>
-					<label for="username">Username: </label><br/>
-					<input type="text" id="username" name="username" required/><br/>
-					<label for="password">Password: </label><br/>
-					<input type="password" id="password" name="password" required/><br/>
-					<br/>
-					<input type="submit" value="Login"/>
-				</form>
-				</h2>
+			<div className="login">
+				<div className="customer-login">
+					<h2>
+						C Login
+					</h2>
+					<form>
+						<label for="username">Username: </label><br/>
+						<input type="text" id="username" name="username" required/><br/>
+						<label for="password">Password: </label><br/>
+						<input type="password" id="password" name="password" required/><br/>
+						<input type="submit" value="Log In"/>
+					</form>
+				</div>
+				<div className="restaurant-login">
+					<h2>
+						R Login
+					</h2>
+					<form>
+						<label for="username">Username: </label><br/>
+						<input type="text" id="username" name="username" required/><br/>
+						<label for="password">Password: </label><br/>
+						<input type="password" id="password" name="password" required/><br/>
+						<input type="submit" value="Log In"/>
+					</form>
+				</div>
 			</div>
 		);
 	}

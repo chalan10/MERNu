@@ -1,8 +1,21 @@
-.Login {
-	text-align: center;
+.login {
+	text-align: left;
 }
 
-.Login-header {
+.customer-login {
+	background-color: #282c34;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-size: calc(10px + 2vmin);
+	color: blue;
+	width: 50%;
+	float: left;
+}
+
+.restaurant-login {
 	background-color: #282c34;
 	min-height: 100vh;
 	display: flex;
@@ -11,4 +24,5 @@
 	justify-content: center;
 	font-size: calc(10px + 2vmin);
 	color: red;
+	margin-left: 50%;
 }
