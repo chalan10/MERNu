@@ -1,0 +1,15 @@
+.restaurant {
+	border: 5px solid coral;
+	height: 550px;
+	display: flex;
+}
+
+.sidebar {
+	background-color: pink;
+}
+
+.main-page {
+	background-color: skyblue;
+	display: flex;
+	flex: 1;
+}

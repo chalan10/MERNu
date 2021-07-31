@@ -7,6 +7,14 @@ import Restaurant from "./components/Restaurant.js";
 import "./App.css";
 
 function App() {
+	const [ showNavBar, setShowNavBar ] = useState(false);
+
+	function onToggle() {
+		setShowNavBar(!showNavBar);
+		console.log(showNavBar);
+	}
+
+	/*
 	const [message, setmessage] = useState(0);
 
 	useEffect(() => {
@@ -14,6 +22,7 @@ function App() {
 			setmessage(data.msg)
 		});
 	}, []);
+	*/
 
 	// TODO: remove links once redirection works
 	//<div>{message}</div>
@@ -33,7 +42,7 @@ function App() {
 						<Customer />
 					</Route>
 					<Route path="/restaurant/">
-						<Restaurant />
+						<Restaurant showNavBar={showNavBar} onToggle={onToggle}/>
 					</Route>
 					<Route path="/">
 						<Login />
