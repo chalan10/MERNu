@@ -5,31 +5,40 @@ import Active from "./Active.js";
 import History from "./History.js";
 import "./Restaurant.css";
 
-function Restaurant({ showNavBar, onToggle }) {
-	const routes = [
-		{
-			path: "/restaurant/",
-			exact: true,
-			sidebar: () => <div>home</div>,
-			main: () => <h2>Restaurant Page</h2>
-		},
-		{
-			path: "/restaurant/menu/",
-			sidebar: () => <div>menu</div>,
-			main: () => <Menu />
-		},
-		{
-			path: "/restaurant/active/",
-			sidebar: () => <div>active</div>,
-			main: () => <Active />
-		},
-		{
-			path: "/restaurant/history/",
-			sidebar: () => <div>history</div>,
-			main: () => <History />
-		}
-	];
+const routes = [
+	{
+		path: "/restaurant/",
+		exact: true,
+		sidebar: () => <div>home</div>,
+		main: () => <h2>Restaurant Page</h2>,
+		title: "Restaurant Page"
+	},
+	{
+		path: "/restaurant/menu/",
+		sidebar: () => <div>menu</div>,
+		main: () => <Menu />,
+		title: "Menu"
+	},
+	{
+		path: "/restaurant/active/",
+		sidebar: () => <div>active</div>,
+		main: () => <Active />,
+		title: "Active Orders"
+	},
+	{
+		path: "/restaurant/history/",
+		sidebar: () => <div>history</div>,
+		main: () => <History />,
+		title: "Order History"
+	},
+	{
+		path: "/",
+		exact: true,
+		title: "Logout"
+	}
+];
 
+function Restaurant({ showNavBar, onToggle }) {
 	// TODO: Avoid hardcoding restaurant path in link
 	return(
 		<div className="restaurant">
@@ -40,20 +49,15 @@ function Restaurant({ showNavBar, onToggle }) {
 						color={showNavBar ? "red" : "green"}
 						onToggle={onToggle}
 					/><br/>
-					<ul>
-						<li>
-							<Link to="/restaurant/">Home Page / Account</Link><br/>
-						</li>
-						<li>
-							<Link to="/restaurant/menu/">Menu</Link><br/>
-						</li>
-						<li>
-							<Link to="/restaurant/active/">Active Orders</Link><br/>
-						</li>
-						<li>
-							<Link to="/restaurant/history/">Order History</Link>
-						</li>
-					</ul>
+					{routes.map((item, index) => {
+						return (
+							<div className="sidebar-item">
+								<Link to={item.path}>
+									{item.title}
+								</Link>
+							</div>
+						);
+					})}
 					<Switch>
 						{routes.map((route, index) => (
 							<Route

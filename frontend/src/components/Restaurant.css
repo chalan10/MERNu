@@ -6,10 +6,33 @@
 
 .sidebar {
 	background-color: pink;
+	border: 5px solid magenta;
+}
+
+.sidebar-item {
+	background-color: coral;
+	border: 2px solid orange;
+	display: block;
+}
+
+.sidebar-item a {
+	color: green;
+	text-decoration: none;
+	font-size: 24px;
+	width: 95%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	padding: 5px;
+}
+
+.sidebar-item a:hover {
+	background-color: purple;
 }
 
 .main-page {
 	background-color: skyblue;
+	border: 5px solid cyan;
 	display: flex;
 	flex: 1;
 }
