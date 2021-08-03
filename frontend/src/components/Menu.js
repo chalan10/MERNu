@@ -1,17 +1,23 @@
-import React from "react";
 import Item from "./Item.js";
+import Category from "./Category.js";
 import "./Menu.css";
 
-class Menu extends React.Component {
-	render() {
-		return(
-			<div>
+function Menu({ menuItems, showEdit, onEdit, showCategory, toggleCategory }) {
+	return(
+		<div className="menu">
+			<div className="menu-header">
 				<h2>Menu</h2>
-				<Item />
-				<Item />
+				<Category showCategory={showCategory} toggleCategory={toggleCategory}/>
 			</div>
-		);
-	}
+			<div className="menu-items">
+				{menuItems.map((item, index) => {
+					return (
+						<Item menuItem={item} showEdit={showEdit} onEdit={onEdit}/>
+					);
+				})}
+			</div>
+		</div>
+	);
 }
 
 export default Menu;

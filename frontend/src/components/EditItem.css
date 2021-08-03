@@ -1,0 +1,15 @@
+.edit {
+	background-color: yellow;
+}
+
+.edit-button {
+	background-color: beige;
+	border-radius: 6px;
+}
+
+.edit-menu {
+	background-color: orchid;
+	border: 2px solid black;
+	position: relative;
+	z-index: 1;
+}

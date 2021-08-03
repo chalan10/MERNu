@@ -1,28 +1,15 @@
-import React from "react";
+import EditItem from "./EditItem.js";
 import "./Item.css";
 
-class Item extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			name: "name",
-			description: "desc",
-			price: "0.0",
-		};
-	}
-
-	render() {
-		return(
-			<div>
-				<h className="item-name">{this.state.name}</h>
-				<p className="item-description">{this.state.description}</p>
-				<p className="item-price">${this.state.price}</p>
-				<button>
-					Click
-				</button>
-			</div>
-		);
-	}
+function Item({ menuItem, showEdit, onEdit }) {
+	return (
+		<div className="item">
+			{menuItem.name}<br/>
+			{menuItem.description}<br/>
+			${menuItem.price}<br/>
+			<EditItem menuItem={menuItem} showEdit={showEdit} onEdit={onEdit}/>
+		</div>
+	);
 }
 
 export default Item;

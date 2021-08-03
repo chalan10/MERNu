@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Login from "./components/Login.js";
 import Create from "./components/Create.js";
@@ -35,6 +35,9 @@ function App() {
 				<Link to="/restaurant/">Restaurant Page</Link><br/>
 				<hr/>
 				<Switch>
+					<Route exact path="/">
+						<Login />
+					</Route>
 					<Route path="/create/">
 						<Create />
 					</Route>
@@ -43,9 +46,6 @@ function App() {
 					</Route>
 					<Route path="/restaurant/">
 						<Restaurant showNavBar={showNavBar} onToggle={onToggle}/>
-					</Route>
-					<Route path="/">
-						<Login />
 					</Route>
 				</Switch>
 			</div>

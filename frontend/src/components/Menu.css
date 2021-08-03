@@ -1,0 +1,20 @@
+.menu {
+	background-color: teal;
+	flex: 1;
+}
+
+.menu-header {
+	background-color: darkgreen;
+	display: flex;
+}
+
+.menu-items {
+	background-color: hotpink;
+	height: 300px;
+}
+
+.menu-items:after {
+	content: "";
+	display: table;
+	clear: both;
+}

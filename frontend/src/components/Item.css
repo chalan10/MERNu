@@ -1,16 +1,24 @@
-.item-name {
-	background-color: white;
-	color: red;
+.item {
+	background-color: tan;
+	border: 5px solid black;
+	margin: 2px 2px 2px 2px;
+	text-align: center;
+	padding: 5px;
+	width: 150px;
+	height: 100px;
+	float: left;
 }
 
-.item-description {
-	color: blue;
+/*
+@media screen and (max-width: 900px) {
+	.item {
+		width: 50%;
+	}
 }
 
-.item-price {
-	color: green;
+@media screen and (max-width: 600px) {
+	.item {
+		width: 100%;
+	}
 }
-
-.item-image {
-
-}
+*/
