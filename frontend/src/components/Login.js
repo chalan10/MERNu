@@ -6,6 +6,8 @@ import Create from "./Create.js";
 import "./Login.css";
 
 class Login extends React.Component {
+	// TODO: keep state here or in App.js?
+	/*
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -13,6 +15,7 @@ class Login extends React.Component {
 			password: "",
 		};
 	}
+	*/
 
 	/*
 	sendLogin() => {
@@ -53,6 +56,9 @@ class Login extends React.Component {
 						<input type="password" id="password" name="password" required/><br/>
 						<input type="submit" value="Log In"/>
 					</form>
+				</div>
+				<div className="create-acc">
+					<Link to="/create/">Create Account</Link>
 				</div>
 			</div>
 		);
