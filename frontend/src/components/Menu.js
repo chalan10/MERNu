@@ -1,8 +1,10 @@
 import Item from "./Item.js";
+import EditItem from "./EditItem.js";
 import Category from "./Category.js";
 import "./Menu.css";
 
-function Menu({ menuItems, showEdit, onEdit, showCategory, toggleCategory }) {
+function Menu({ menuItems, setMenuItems, toggleEditItem, deleteItem, showCategory, toggleCategory }) {
+	// TODO: addItem
 	return(
 		<div className="menu">
 			<div className="menu-header">
@@ -12,7 +14,7 @@ function Menu({ menuItems, showEdit, onEdit, showCategory, toggleCategory }) {
 			<div className="menu-items">
 				{menuItems.map((item, index) => {
 					return (
-						<Item menuItem={item} showEdit={showEdit} onEdit={onEdit}/>
+						<Item menuItem={item} setMenuItems={setMenuItems} toggleEditItem={toggleEditItem} deleteItem={deleteItem}/>
 					);
 				})}
 			</div>

@@ -6,39 +6,47 @@ import Active from "./Active.js";
 import History from "./History.js";
 import "./Restaurant.css";
 
-const menuItems = [
-	{
-		name: "French Fries",
-		description: "Appetizer",
-		price: 3.99,
-		edit: false
-	},
-	{
-		name: "Burger",
-		description: "Entree",
-		price: 8.99,
-		edit: false
-	},
-	{
-		name: "Soda",
-		description: "Beverage",
-		price: 1.99,
-		edit: false
-	},
-	{
-		name: "Ice Cream",
-		description: "Dessert",
-		price: 2.99,
-		edit: false
-	}
-];
-
-
 function Restaurant({ showNavBar, onToggle }) {
-	const [ showEdit, setShowEdit ] = useState();
+	const [ menuItems, setMenuItems ] = useState([
+		{
+			id: 1,
+			name: "French Fries",
+			description: "Appetizer",
+			price: 3.99,
+			edit: false
+		},
+		{
+			id: 2,
+			name: "Burger",
+			description: "Entree",
+			price: 8.99,
+			edit: false
+		},
+		{
+			id: 3,
+			name: "Soda",
+			description: "Beverage",
+			price: 1.99,
+			edit: false
+		},
+		{
+			id: 4,
+			name: "Ice Cream",
+			description: "Dessert",
+			price: 2.99,
+			edit: false
+		}
+	]);
 	const [ showCategory, setShowCategory ] = useState();
-	function toggleEditItem() {
-		setShowEdit(!showEdit);
+	function toggleEditItem(id) {
+		setMenuItems(
+			menuItems.map((menuItem) =>
+				menuItem.id == id ? { ...menuItem, edit: !menuItem.edit } : menuItem
+			)
+		);
+	}
+	function deleteItem(id) {
+		setMenuItems(menuItems.filter((menuItem) => menuItem.id !== id))
 	}
 	function toggleCategory() {
 		setShowCategory(!showCategory);
@@ -57,8 +65,9 @@ function Restaurant({ showNavBar, onToggle }) {
 			sidebar: () => {return null},
 			main: () => <Menu
 							menuItems={menuItems}
-							showEdit={showEdit}
-							onEdit={toggleEditItem}
+							setMenuItems={setMenuItems}
+							toggleEditItem={toggleEditItem}
+							deleteItem={deleteItem}
 							showCategory={showCategory}
 							toggleCategory={toggleCategory}
 						/>,

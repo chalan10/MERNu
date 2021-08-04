@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./EditItem.css";
 
-function EditItem({ menuItem, showEdit, onEdit }) {
+function EditItem({ menuItem, setMenuItems, toggleEditItem }) {
 	/*
 	const [ state, setState ] = useState();
 
@@ -12,10 +12,10 @@ function EditItem({ menuItem, showEdit, onEdit }) {
 
 	return (
 		<div className="edit">
-			<button className="edit-button" onClick={onEdit}>
+			<button className="edit-button" onClick={() => toggleEditItem(menuItem.id)}>
 				Edit Item Button
 			</button>
-			{showEdit &&
+			{menuItem.edit &&
 				<form className="edit-menu">
 					<label for="item-name">Item Name</label><br/>
 					<input
@@ -27,7 +27,7 @@ function EditItem({ menuItem, showEdit, onEdit }) {
 					<input type="text" id="item-description" name="item-description" value={menuItem.description} required/><br/>
 					<label for="item-price">Item Price</label><br/>
 					<input type="text" id="item-price" name="item-price" value={menuItem.price} required/><br/>
-					<button onClick={onEdit}>
+					<button onClick={toggleEditItem}>
 						Cancel
 					</button>
 					<input type="submit" value="Save" style={{ backgroundColor: "skyblue" }}/>
