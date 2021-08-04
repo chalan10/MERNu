@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Login from "./components/Login.js";
 import Create from "./components/Create.js";
@@ -14,7 +14,7 @@ function App() {
 		console.log(showNavBar);
 	}
 
-	/*
+	/* fetch data from backend
 	const [message, setmessage] = useState(0);
 
 	useEffect(() => {
@@ -22,10 +22,11 @@ function App() {
 			setmessage(data.msg)
 		});
 	}, []);
+
+	<div>{message}</div>
 	*/
 
-	// TODO: remove links once redirection works
-	//<div>{message}</div>
+	// TODO: remove navbar links once redirection works
 	return(
 		<Router>
 			<div>

@@ -1,15 +1,6 @@
-import { useState, useEffect } from "react";
 import "./EditItem.css";
 
 function EditItem({ menuItem, setMenuItems, toggleEditItem }) {
-	/*
-	const [ state, setState ] = useState();
-
-	function onChange() {
-		setState(state.name);
-	}
-	*/
-
 	return (
 		<div className="edit">
 			<button className="edit-button" onClick={() => toggleEditItem(menuItem.id)}>

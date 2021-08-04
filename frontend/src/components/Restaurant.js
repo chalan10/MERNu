@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import NavBar from "./NavBar.js";
 import Menu from "./Menu.js";
@@ -37,17 +37,21 @@ function Restaurant({ showNavBar, onToggle }) {
 			edit: false
 		}
 	]);
+
 	const [ showCategory, setShowCategory ] = useState();
+
 	function toggleEditItem(id) {
 		setMenuItems(
 			menuItems.map((menuItem) =>
-				menuItem.id == id ? { ...menuItem, edit: !menuItem.edit } : menuItem
+				menuItem.id === id ? { ...menuItem, edit: !menuItem.edit } : menuItem
 			)
 		);
 	}
+
 	function deleteItem(id) {
 		setMenuItems(menuItems.filter((menuItem) => menuItem.id !== id))
 	}
+
 	function toggleCategory() {
 		setShowCategory(!showCategory);
 	}
@@ -56,13 +60,11 @@ function Restaurant({ showNavBar, onToggle }) {
 		{
 			path: "/restaurant/",
 			exact: true,
-			sidebar: () => {return null},
 			main: () => <h2>Restaurant Page</h2>,
 			title: "Restaurant Page"
 		},
 		{
 			path: "/restaurant/menu/",
-			sidebar: () => {return null},
 			main: () => <Menu
 							menuItems={menuItems}
 							setMenuItems={setMenuItems}
@@ -75,13 +77,11 @@ function Restaurant({ showNavBar, onToggle }) {
 		},
 		{
 			path: "/restaurant/active/",
-			sidebar: () => {return null},
 			main: () => <Active />,
 			title: "Active Orders"
 		},
 		{
 			path: "/restaurant/history/",
-			sidebar: () => {return null},
 			main: () => <History />,
 			title: "Order History"
 		},
@@ -113,18 +113,8 @@ function Restaurant({ showNavBar, onToggle }) {
 							);
 						})}
 					</div>
-					<Switch>
-						{routes.map((route, index) => (
-							<Route
-								key={index}
-								path={route.path}
-								exact={route.exact}
-								children={<route.sidebar />}
-							/>
-						))}
-					</Switch>
 				</ul>
-				<div className="main-page">
+				<div className="main">
 					<Switch>
 						{routes.map((route, index) => (
 							<Route

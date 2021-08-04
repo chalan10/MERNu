@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import "./Category.css";
 
 function Category({ showCategory, toggleCategory }) {

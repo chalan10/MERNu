@@ -1,5 +1,4 @@
 import Item from "./Item.js";
-import EditItem from "./EditItem.js";
 import Category from "./Category.js";
 import "./Menu.css";
 
