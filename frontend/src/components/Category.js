@@ -1,34 +1,36 @@
+import { useState } from "react";
+import Item from "./Item.js";
+import AddItem from "./AddItem.js";
 import "./Category.css";
 
-function Category({ showCategory, toggleCategory }) {
+function Category({ menuCategory, setMenuCategory, deleteCategory,
+					menuItems, setMenuItems, deleteItem, toggleEditItem }) {
+	const [ showAddItem, setShowAddItem ] = useState();
+	function toggleShowAddItem() {
+		setShowAddItem(!showAddItem);
+	}
+
 	return (
 		<div className="category">
-			<button className="category-btn" onClick={toggleCategory}>
-				Add Category
-			</button>
-			{showCategory &&
-				<form className="category-menu">
-					<label for="category-name">
-						Category Name
-					</label><br/>
-					<input
-						type="text"
-						id="category-name"
-						name="category-name"
-					/><br/>
-					<label for="category-description">
-						Description
-					</label><br/>
-					<textarea
-						type="text"
-						id="category-description"
-						name="category-description"
-						className="category-description"
-					/><br/>
-					<button onClick={toggleCategory}>Cancel</button>
-					<input type="submit" value="Save"/>
-				</form>
-			}
+			<h2>
+				{menuCategory.name}<br/>
+				<button className="delete-category-btn" onDoubleClick={() => deleteCategory(menuCategory.id)}>
+					Delete Category
+				</button>
+			</h2>
+			{menuItems.map((item) => {
+				if (item.id === menuCategory.id) {
+					return (
+						<Item
+							menuItem={item}
+							setMenuItem={setMenuItems}
+							deleteItem={deleteItem}
+							toggleEditItem={toggleEditItem}
+						/>
+					);
+				}
+			})}
+			<AddItem showAddItem={showAddItem} toggleShowAddItem={toggleShowAddItem}/>
 		</div>
 	);
 }
