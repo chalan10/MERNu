@@ -1,0 +1,25 @@
+.add-item {
+	position: relative;
+}
+
+.add-item-btn {
+	background-color: beige;
+	border: 5px solid black;
+	margin: 2px 2px 2px 2px;
+	text-align: center;
+	padding: 5px;
+	width: 150px;
+	height: 100px;
+	float: left;
+}
+
+.add-item-form {
+	background-color: beige;
+	border: 5px solid black;
+	margin: 2px 2px 2px 2px;
+	text-align: center;
+	padding: 5px;
+	width: auto;
+	height: auto;
+	float: left;
+}
