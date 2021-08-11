@@ -23,10 +23,8 @@ function Category({ menuCategory, setMenuCategory, deleteCategory, toggleEditCat
 					menuCategory={menuCategory}
 					setMenuCategory={setMenuCategory}
 					toggleEditCategory={toggleEditCategory}
+					deleteCategory={deleteCategory}
 				/>
-				<button className="category-btn" onClick={() => deleteCategory(menuCategory.id)}>
-					Delete Category
-				</button>
 			</div>
 			{menuItems.map((item) => {
 				if (item.id === menuCategory.id) {

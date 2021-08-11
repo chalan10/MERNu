@@ -12,14 +12,19 @@ import "./EditItem.css";
 /*	TODO: item modifiers optional
 	<label>Item Modifiers</label><br/>
 */
-function EditItem({ menuItem, setMenuItems, toggleEditItem }) {
+function EditItem({ menuItem, setMenuItems, deleteItem, toggleEditItem }) {
 	return (
 		<div className="edit-item">
-			<button className="edit-item-button" onClick={() => toggleEditItem(menuItem.id)}>
+			<button className="edit-item-btn" onClick={() => toggleEditItem(menuItem.id)}>
 				Edit Item Button
 			</button>
 			{menuItem.edit &&
-				<ItemForm menuItem={menuItem} setMenuItems={setMenuItems} toggleItemForm={toggleEditItem}/>
+				<ItemForm
+					menuItem={menuItem}
+					setMenuItems={setMenuItems}
+					deleteItem={deleteItem}
+					toggleItemForm={toggleEditItem}
+				/>
 			}
 		</div>
 	);

@@ -1,6 +1,8 @@
 .item-form {
 	background-color: orchid;
 	border: 2px solid black;
+	float: left;
 	position: relative;
 	z-index: 1;
+	text-align: left;
 }

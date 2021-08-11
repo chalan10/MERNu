@@ -8,10 +8,12 @@ function Item({ menuItem, setMenuItem, deleteItem, toggleEditItem }) {
 			{menuItem.name}<br/>
 			{menuItem.description}<br/>
 			${menuItem.price}<br/>
-			<EditItem menuItem={menuItem} setMenuItem={setMenuItem} toggleEditItem={toggleEditItem}/>
-			<button onClick={() => deleteItem(menuItem.id)}>
-				Delete
-			</button>
+			<EditItem
+				menuItem={menuItem}
+				setMenuItem={setMenuItem}
+				deleteItem={deleteItem}
+				toggleEditItem={toggleEditItem}
+			/>
 		</div>
 	);
 }

@@ -3,7 +3,8 @@ import "./CategoryForm.css"
 // TODO: is it okay to have a call to a functional component without passing in 
 // all props? addCategory doesn't need categoryId whereas editCategory does
 // look into the effects of this, if there are any
-function CategoryForm({ menuCategories, setMenuCategories, menuCategory, setMenuCategory, toggleCategoryForm }) {
+function CategoryForm({ menuCategories, setMenuCategories, menuCategory, setMenuCategory, toggleCategoryForm, deleteCategory }) {
+	// Add Category
 	if (menuCategories) {
 		return (
 			<form className="category-form">
@@ -27,11 +28,16 @@ function CategoryForm({ menuCategories, setMenuCategories, menuCategory, setMenu
 				<button onClick={() => toggleCategoryForm()}>
 					Cancel
 				</button>
-				<input type="submit" value="Save"/>
+				<input
+					type="submit"
+					value="Save"
+					style={{ backgroundColor: "skyblue" }}
+				/>
 			</form>
 		);
 	}
-	else if (menuCategory) {
+	// Edit Category
+	if (menuCategory) {
 		return (
 			<form className="category-form">
 				<label for="category-name">
@@ -56,7 +62,14 @@ function CategoryForm({ menuCategories, setMenuCategories, menuCategory, setMenu
 				<button onClick={() => toggleCategoryForm(menuCategory.id)}>
 					Cancel
 				</button>
-				<input type="submit" value="Save"/>
+				<button onClick={() => deleteCategory(menuCategory.id)} style={{ backgroundColor: "crimson" }}>
+					Delete
+				</button>
+				<input
+					type="submit"
+					value="Save"
+					style={{ backgroundColor: "skyblue" }}
+				/>
 			</form>
 		);
 	}
