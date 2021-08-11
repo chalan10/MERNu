@@ -5,13 +5,13 @@ import "./Item.css";
 function Item({ menuItem, setMenuItem, deleteItem, toggleEditItem }) {
 	return (
 		<div className="item">
-			<button onDoubleClick={() => deleteItem(menuItem.id)}>
-				Delete
-			</button><br/>
 			{menuItem.name}<br/>
 			{menuItem.description}<br/>
 			${menuItem.price}<br/>
 			<EditItem menuItem={menuItem} setMenuItem={setMenuItem} toggleEditItem={toggleEditItem}/>
+			<button onClick={() => deleteItem(menuItem.id)}>
+				Delete
+			</button>
 		</div>
 	);
 }

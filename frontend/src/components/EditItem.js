@@ -1,40 +1,25 @@
+import ItemForm from "./ItemForm.js";
 import "./EditItem.css";
 
+/* TODO: do we need to be able to edit item category? if we do, we'd need to pass
+ * menuCategory so that each item knows which category it is in and which to change
+ * its categoryId to
+	<label>Item Category</label><br/>
+	<select name="item-category">
+		<option value="category">Category</option>
+	</select><br/>
+*/
+/*	TODO: item modifiers optional
+	<label>Item Modifiers</label><br/>
+*/
 function EditItem({ menuItem, setMenuItems, toggleEditItem }) {
 	return (
-		<div className="edit">
-			<button className="edit-button" onClick={() => toggleEditItem(menuItem.id)}>
+		<div className="edit-item">
+			<button className="edit-item-button" onClick={() => toggleEditItem(menuItem.id)}>
 				Edit Item Button
 			</button>
 			{menuItem.edit &&
-				<form className="edit-form">
-					<label>Item Name</label><br/>
-					<input
-						type="text"
-						name="item-name"
-						value={menuItem.name}
-					/><br/>
-					<label>Item Description</label><br/>
-					<input
-						type="text"
-						name="item-description"
-						value={menuItem.description}
-					/><br/>
-					<label>Item Price</label><br/>
-					<input
-						type="text"
-						name="item-price"
-						value={menuItem.price}
-					/><br/>
-					<button onClick={() => toggleEditItem(menuItem.id)}>
-						Cancel
-					</button>
-					<input
-						type="submit"
-						value="Save"
-						style={{ backgroundColor: "skyblue" }}
-					/>
-				</form>
+				<ItemForm menuItem={menuItem} setMenuItems={setMenuItems} toggleItemForm={toggleEditItem}/>
 			}
 		</div>
 	);

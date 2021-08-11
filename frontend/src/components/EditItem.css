@@ -1,15 +1,8 @@
-.edit {
+.edit-item {
 	background-color: yellow;
 }
 
-.edit-button {
+.edit-item-button {
 	background-color: beige;
 	border-radius: 6px;
-}
-
-.edit-form {
-	background-color: orchid;
-	border: 2px solid black;
-	position: relative;
-	z-index: 1;
 }

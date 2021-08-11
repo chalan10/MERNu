@@ -1,24 +1,14 @@
+import ItemForm from "./ItemForm.js";
 import "./AddItem.css";
 
-function AddItem({ showAddItem, toggleShowAddItem }) {
+function AddItem({ menuCategory, toggleShowAddItem }) {
 	return (
 		<div className="add-item">
-			<button className="add-item-btn" onClick={toggleShowAddItem}>
+			<button className="add-item-btn" onClick={() => toggleShowAddItem(menuCategory.id)}>
 				<h2>Add Item</h2>
 			</button>
-			{showAddItem &&
-				<form className="add-item-form">
-					<label>Item Name</label><br/>
-					<input type="text"></input><br/>
-					<label>Item Description</label><br/>
-					<input type="text"></input><br/>
-					<label>Item Price</label><br/>
-					<input type="text"></input><br/>
-					<button onClick={toggleShowAddItem}>
-						Cancel
-					</button>
-					<input type="submit" value="Save"/>
-				</form>
+			{menuCategory.addItem &&
+				<ItemForm menuCategory={menuCategory} toggleItemForm={toggleShowAddItem}/>
 			}
 		</div>
 	);

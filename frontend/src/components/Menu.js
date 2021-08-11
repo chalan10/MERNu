@@ -9,7 +9,7 @@ function Menu() {
 		{
 			id: 1,
 			name: "Appetizers",
-			description: "Description",
+			description: "Appetizers Description",
 			/*
 			items: [
 				{
@@ -22,12 +22,13 @@ function Menu() {
 				},
 			],
 			*/
-			edit: false
+			edit: false,
+			addItem: false
 		},
 		{
 			id: 2,
 			name: "Entrees",
-			description: "Description",
+			description: "Entrees Description",
 			/*
 			items: [
 				{
@@ -40,12 +41,13 @@ function Menu() {
 				},
 			],
 			*/
-			edit: false
+			edit: false,
+			addItem: false
 		},
 		{
 			id: 3,
 			name: "Dessert",
-			description: "Description",
+			description: "Dessert Description",
 			/*
 			items: [
 				{
@@ -58,12 +60,13 @@ function Menu() {
 				},
 			],
 			*/
-			edit: false
+			edit: false,
+			addItem: false
 		},
 		{
 			id: 4,
 			name: "Beverages",
-			description: "Description",
+			description: "Beverages Description",
 			/*
 			items: [
 				{
@@ -76,7 +79,8 @@ function Menu() {
 				},
 			],
 			*/
-			edit: false
+			edit: false,
+			addItem: false
 		}
 	]);
 
@@ -87,6 +91,20 @@ function Menu() {
 	// TODO: on delete category, delete all items in that category
 	function deleteCategory(id) {
 		setMenuCategories(menuCategories.filter((menuCategory) => menuCategory.id !== id))
+	}
+	function toggleEditCategory(id) {
+		setMenuCategories(
+			menuCategories.map((menuCategory) =>
+				menuCategory.id === id ? { ...menuCategory, edit: !menuCategory.edit } : menuCategory
+			)
+		);
+	}
+	function toggleShowAddItem(id) {
+		setMenuCategories(
+			menuCategories.map((menuCategory) =>
+				menuCategory.id === id ? { ...menuCategory, addItem: !menuCategory.addItem } : menuCategory
+			)
+		);
 	}
 
 	const [ menuItems, setMenuItems ] = useState([
@@ -125,7 +143,7 @@ function Menu() {
 	]);
 
 	function deleteItem(id) {
-		setMenuItems(menuItems.filter((menuItem) => menuItem.id !== id))
+		setMenuItems(menuItems.filter((menuItem) => menuItem.id !== id));
 	}
 	function toggleEditItem(id) {
 		setMenuItems(
@@ -140,6 +158,8 @@ function Menu() {
 			<div className="menu-header">
 				<h2>Menu</h2>
 				<AddCategory
+					menuCategories={menuCategories}
+					setMenuCategories={setMenuCategories}
 					showAddCategory={showAddCategory}
 					toggleShowAddCategory={toggleShowAddCategory}
 				/>
@@ -148,9 +168,15 @@ function Menu() {
 				{menuCategories.map((category) => {
 					return (
 						<Category
+						/*
+							menuCategories={menuCategories}
+							setMenuCategories={setMenuCategories}
+						*/
 							menuCategory={category}
 							setMenuCategory={setMenuCategories}
 							deleteCategory={deleteCategory}
+							toggleEditCategory={toggleEditCategory}
+							toggleShowAddItem={toggleShowAddItem}
 							menuItems={menuItems}
 							setMenuItems={setMenuItems}
 							deleteItem={deleteItem}

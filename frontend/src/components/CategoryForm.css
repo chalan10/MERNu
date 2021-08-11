@@ -1,0 +1,12 @@
+.category-form {
+	background-color: orange;
+	border: 2px solid red;
+	height: 200px;
+	position: relative;
+	z-index: 2;
+}
+
+.category-description {
+	resize: none;
+	height: 100px;
+}

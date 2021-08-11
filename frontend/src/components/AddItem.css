@@ -11,15 +11,6 @@
 	width: 150px;
 	height: 100px;
 	float: left;
-}
-
-.add-item-form {
-	background-color: beige;
-	border: 5px solid black;
-	margin: 2px 2px 2px 2px;
-	text-align: center;
-	padding: 5px;
-	width: auto;
-	height: auto;
-	float: left;
+	position: relative;
+	z-index: 2;
 }
