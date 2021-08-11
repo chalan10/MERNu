@@ -17,7 +17,7 @@ function Category({ menuCategory, setMenuCategory, deleteCategory, toggleEditCat
 		<div className="category">
 			<div className="category-header">
 				<h2>
-					{menuCategory.name}<br/>
+					{menuCategory.name}
 				</h2>
 				<EditCategory
 					menuCategory={menuCategory}
