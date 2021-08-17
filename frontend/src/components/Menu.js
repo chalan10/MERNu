@@ -10,102 +10,23 @@ function Menu() {
 			id: 1,
 			name: "Appetizers",
 			description: "Appetizers Description",
-			/*
-			items: [
-				{
-					id: 1,
-					category: 1,
-					name: "French Fries",
-					description: "Appetizer",
-					price: 3.99,
-					edit: false
-				},
-			],
-			*/
-			edit: false,
-			addItem: false
 		},
 		{
 			id: 2,
 			name: "Entrees",
 			description: "Entrees Description",
-			/*
-			items: [
-				{
-					id: 2,
-					category: 2,
-					name: "Burger",
-					description: "Entree",
-					price: 8.99,
-					edit: false
-				},
-			],
-			*/
-			edit: false,
-			addItem: false
 		},
 		{
 			id: 3,
 			name: "Dessert",
 			description: "Dessert Description",
-			/*
-			items: [
-				{
-					id: 3,
-					category: 3,
-					name: "Ice Cream",
-					description: "Dessert",
-					price: 2.99,
-					edit: false
-				},
-			],
-			*/
-			edit: false,
-			addItem: false
 		},
 		{
 			id: 4,
 			name: "Beverages",
 			description: "Beverages Description",
-			/*
-			items: [
-				{
-					id: 4,
-					category: 4,
-					name: "Soda",
-					description: "Beverage",
-					price: 1.99,
-					edit: false
-				},
-			],
-			*/
-			edit: false,
-			addItem: false
 		}
 	]);
-
-	const [ showAddCategory, setShowAddCategory ] = useState();
-	function toggleShowAddCategory() {
-		setShowAddCategory(!showAddCategory);
-	}
-	// TODO: on delete category, delete all items in that category
-	function deleteCategory(id) {
-		setMenuCategories(menuCategories.filter((menuCategory) => menuCategory.id !== id))
-	}
-	function toggleEditCategory(id) {
-		setMenuCategories(
-			menuCategories.map((menuCategory) =>
-				menuCategory.id === id ? { ...menuCategory, edit: !menuCategory.edit } : menuCategory
-			)
-		);
-	}
-	function toggleShowAddItem(id) {
-		setMenuCategories(
-			menuCategories.map((menuCategory) =>
-				menuCategory.id === id ? { ...menuCategory, addItem: !menuCategory.addItem } : menuCategory
-			)
-		);
-	}
 
 	const [ menuItems, setMenuItems ] = useState([
 		{
@@ -114,7 +35,6 @@ function Menu() {
 			name: "French Fries",
 			description: "Appetizer",
 			price: 3.99,
-			edit: false
 		},
 		{
 			id: 2,
@@ -122,7 +42,6 @@ function Menu() {
 			name: "Burger",
 			description: "Entree",
 			price: 8.99,
-			edit: false
 		},
 		{
 			id: 3,
@@ -130,7 +49,6 @@ function Menu() {
 			name: "Ice Cream",
 			description: "Dessert",
 			price: 2.99,
-			edit: false
 		},
 		{
 			id: 4,
@@ -138,20 +56,93 @@ function Menu() {
 			name: "Soda",
 			description: "Beverage",
 			price: 1.99,
-			edit: false
 		}
 	]);
+
+	function deleteCategory(id) {
+		console.log(id);
+		setMenuItems(menuItems.filter((menuItem) => menuItem.category !== id));
+		setMenuCategories(menuCategories.filter((menuCategory) => menuCategory.id !== id));
+	}
 
 	function deleteItem(id) {
 		setMenuItems(menuItems.filter((menuItem) => menuItem.id !== id));
 	}
-	function toggleEditItem(id) {
-		setMenuItems(
-			menuItems.map((menuItem) =>
-				menuItem.id === id ? { ...menuItem, edit: !menuItem.edit } : menuItem
-			)
-		);
+
+	/*
+	function handleCategorySubmit(e, data) {
+		e.preventDefault();
+		// Add Category
+		if (!data.id) {
+			const rid = Math.floor(Math.random() * 10000) + 1;
+			setMenuCategories([
+				...menuCategories,
+				{
+					id: rid,
+					name: data.name,
+					description: data.description,
+				}
+			]);
+			console.log(data);
+			console.log(menuCategories);
+		}
+		// Edit Category
+		else {
+			setMenuCategories(
+				menuCategories.map((menuCategory) => 
+					menuCategory.id === data.id
+					? {
+						...menuCategory,
+						name: data.name,
+						description: data.description
+					}
+					: menuCategory
+				)
+			);
+			console.log(data);
+			console.log(menuCategories);
+		}
 	}
+	*/
+
+	/*
+	function handleItemSubmit(e, data) {
+		e.preventDefault();
+		// Add Item
+		if (!data.id) {
+			const rid = Math.floor(Math.random() * 10000) + 1;
+			setMenuItems([
+				...menuItems,
+				{
+					id: rid,
+					category: data.category,
+					name: data.name,
+					description: data.description,
+					price: data.price,
+				}
+			]);
+			console.log(data);
+			console.log(menuItems);
+		}
+		// Edit Item
+		else {
+			setMenuItems(
+				menuItems.map((menuItem) =>
+					menuItem.id === data.id
+					? { 
+						...menuItem,
+						name: data.name,
+						description: data.description,
+						price: data.price,
+					}
+					: menuItem
+				)
+			);
+			console.log(data);
+			console.log(menuItems);
+		}
+	}
+	*/
 
 	return(
 		<div className="menu">
@@ -160,27 +151,22 @@ function Menu() {
 				<AddCategory
 					menuCategories={menuCategories}
 					setMenuCategories={setMenuCategories}
-					showAddCategory={showAddCategory}
-					toggleShowAddCategory={toggleShowAddCategory}
+					//handleCategorySubmit={handleCategorySubmit}
 				/>
 			</div>
 			<div className="menu-categories">
-				{menuCategories.map((category) => {
+				{menuCategories.map((menuCategory) => {
 					return (
 						<Category
-						/*
+							menuCategory={menuCategory}
 							menuCategories={menuCategories}
 							setMenuCategories={setMenuCategories}
-						*/
-							menuCategory={category}
-							setMenuCategory={setMenuCategories}
 							deleteCategory={deleteCategory}
-							toggleEditCategory={toggleEditCategory}
-							toggleShowAddItem={toggleShowAddItem}
 							menuItems={menuItems}
 							setMenuItems={setMenuItems}
 							deleteItem={deleteItem}
-							toggleEditItem={toggleEditItem}
+							//handleCategorySubmit={handleCategorySubmit}
+							//handleItemSubmit={handleItemSubmit}
 						/>
 					);
 				})}

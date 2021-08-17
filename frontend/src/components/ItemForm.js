@@ -1,49 +1,77 @@
 import { useState } from "react";
 import "./ItemForm.css";
 
-// TODO: if menuItem not given, then it is addItem, else editItem
-function ItemForm({ menuCategory, toggleShowAddItem, menuItem, setMenuItem, toggleItemForm, deleteItem }) {
+function ItemForm({ menuCategory, menuItem, menuItems, setMenuItems, deleteItem, toggleForm }) {
 	const [ name, setName ] = useState(menuItem && menuItem.name);
 	const [ description, setDescription ] = useState(menuItem && menuItem.description);
 	const [ price, setPrice ] = useState(menuItem && menuItem.price);
-	/*
-	 * Added menuItems as a prop to ItemForm for these to work
-	function editName(value) {
-		setMenuItem(
-			{ ...menuItem, name: value }
-		);
+
+	function handleSubmit(e, data) {
+		e.preventDefault();
+		// Add Item
+		if (!data.id) {
+			const rid = Math.floor(Math.random() * 10000) + 1;
+			setMenuItems([
+				...menuItems,
+				{
+					id: rid,
+					category: data.category,
+					name: data.name,
+					description: data.description,
+					price: data.price,
+				}
+			]);
+			console.log(data);
+			console.log(menuItems);
+		}
+		// Edit Item
+		else {
+			setMenuItems(
+				menuItems.map((menuItem) =>
+					menuItem.id === data.id ?
+					{ 
+						...menuItem,
+						name: data.name,
+						description: data.description,
+						price: data.price,
+					} :
+					menuItem
+				)
+			);
+			console.log(data);
+			console.log(menuItems);
+		}
 	}
-	*/
-	/*
-	 * This one worked to dynamically change menuItem.name
-	function editName(id, value) {
-		setMenuItem(
-			menuItems.map((item) =>
-				item.id === id ? { ...item, name: value } : item
-			)
-		);
-	}
-	*/
+
 	// Add Item
-	if (menuCategory) {
+	if (!menuItem) {
 		return (
-			<form className="item-form">
+			<form
+				className="item-form"
+				onSubmit={(e) => handleSubmit(e, { category: menuCategory.id, name: name, description: description, price: price })}
+			>
 				<label>Item Name</label><br/>
 				<input
 					type="text"
-					name="item-name"
+					name="name"
+					value={name}
+					onChange={(e) => setName(e.target.value)}
 				/><br/>
 				<label>Item Description</label><br/>
 				<input
 					type="text"
-					name="item-description"
+					name="description"
+					value={description}
+					onChange={(e) => setDescription(e.target.value)}
 				/><br/>
 				<label>Item Price</label><br/>
 				<input
 					type="text"
-					name="item-price"
+					name="price"
+					value={price}
+					onChange={(e) => setPrice(e.target.value)}
 				/><br/>
-				<button onClick={() => toggleItemForm(menuCategory.id)}>
+				<button onClick={toggleForm}>
 					Cancel
 				</button>
 				<input
@@ -57,32 +85,38 @@ function ItemForm({ menuCategory, toggleShowAddItem, menuItem, setMenuItem, togg
 	// Edit Item
 	if (menuItem) {
 		return (
-			<form className="item-form">
+			<form
+				className="item-form"
+				onSubmit={(e) => handleSubmit(e, { id: menuItem.id, category: menuItem.category, name: name, description: description, price: price })}
+			>
 				<label>Item Name</label><br/>
 				<input
 					type="text"
-					name="item-name"
+					name="name"
 					value={name}
 					onChange={(e) => setName(e.target.value)}
 				/><br/>
 				<label>Item Description</label><br/>
 				<input
 					type="text"
-					name="item-description"
+					name="description"
 					value={description}
 					onChange={(e) => setDescription(e.target.value)}
 				/><br/>
 				<label>Item Price</label><br/>
 				<input
 					type="text"
-					name="item-price"
+					name="price"
 					value={price}
 					onChange={(e) => setPrice(e.target.value)}
 				/><br/>
-				<button onClick={() => toggleItemForm(menuItem.id)}>
+				<button onClick={toggleForm}>
 					Cancel
 				</button>
-				<button onClick={() => deleteItem(menuItem.id)} style={{ backgroundColor: "crimson" }}>
+				<button
+					onClick={() => deleteItem(menuItem.id)}
+					style={{ backgroundColor: "crimson" }}
+				>
 					Delete
 				</button>
 				<input

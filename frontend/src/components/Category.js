@@ -1,18 +1,11 @@
-import { useState } from "react";
 import Item from "./Item.js";
 import AddItem from "./AddItem.js";
 import EditCategory from "./EditCategory.js";
 import "./Category.css";
 
-function Category({ menuCategory, setMenuCategory, deleteCategory, toggleEditCategory, toggleShowAddItem,
-					menuItems, setMenuItems, deleteItem, toggleEditItem }) {
-	/*
-	const [ showAddItem, setShowAddItem ] = useState();
-	function toggleShowAddItem() {
-		setShowAddItem(!showAddItem);
-	}
-	*/
-
+function Category({ menuCategory, menuCategories, setMenuCategories, deleteCategory,
+					menuItems, setMenuItems, deleteItem/*,
+					handleCategorySubmit,*/ /*handleItemSubmit*/ }) {
 	return (
 		<div className="category">
 			<div className="category-header">
@@ -21,9 +14,10 @@ function Category({ menuCategory, setMenuCategory, deleteCategory, toggleEditCat
 				</h2>
 				<EditCategory
 					menuCategory={menuCategory}
-					setMenuCategory={setMenuCategory}
-					toggleEditCategory={toggleEditCategory}
+					menuCategories={menuCategories}
+					setMenuCategories={setMenuCategories}
 					deleteCategory={deleteCategory}
+					//handleCategorySubmit={handleCategorySubmit}
 				/>
 			</div>
 			{menuItems.map((item) => {
@@ -31,14 +25,21 @@ function Category({ menuCategory, setMenuCategory, deleteCategory, toggleEditCat
 					return (
 						<Item
 							menuItem={item}
-							setMenuItem={setMenuItems}
+							menuItems={menuItems}
+							setMenuItems={setMenuItems}
 							deleteItem={deleteItem}
-							toggleEditItem={toggleEditItem}
+							//handleItemSubmit={handleItemSubmit}
 						/>
 					);
 				}
+				return null;
 			})}
-			<AddItem menuCategory={menuCategory} toggleShowAddItem={toggleShowAddItem}/>
+			<AddItem
+				menuCategory={menuCategory}
+				menuItems={menuItems}
+				setMenuItems={setMenuItems}
+				//handleItemSubmit={handleItemSubmit}
+			/>
 		</div>
 	);
 }

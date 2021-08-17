@@ -1,18 +1,27 @@
+import { useState } from "react";
 import CategoryForm from "./CategoryForm.js";
 import "./EditCategory.css";
 
-function EditCategory({ menuCategory, setMenuCategory, toggleEditCategory, deleteCategory }) {
+function EditCategory({ menuCategory, menuCategories, setMenuCategories, deleteCategory, /*handleCategorySubmit*/ }) {
+	const [ toggle, setToggle ] = useState(false);
+
+	function toggleForm() {
+		setToggle(!toggle);
+	}
+
 	return (
 		<div className="edit-category">
-			<button className="edit-category-btn" onClick={() => toggleEditCategory(menuCategory.id)}>
+			<button className="edit-category-btn" onClick={toggleForm}>
 				Edit Category
 			</button>
-			{menuCategory.edit &&
+			{toggle &&
 				<CategoryForm
 					menuCategory={menuCategory}
-					setMenuCategory={setMenuCategory}
-					toggleCategoryForm={toggleEditCategory}
+					menuCategories={menuCategories}
+					setMenuCategories={setMenuCategories}
 					deleteCategory={deleteCategory}
+					//handleCategorySubmit={handleCategorySubmit}
+					toggleForm={toggleForm}
 				/>
 			}
 		</div>

@@ -4,27 +4,67 @@ import "./CategoryForm.css"
 // TODO: is it okay to have a call to a functional component without passing in 
 // all props? addCategory doesn't need categoryId whereas editCategory does
 // look into the effects of this, if there are any
-function CategoryForm({ menuCategories, setMenuCategories, menuCategory, setMenuCategory, toggleCategoryForm, deleteCategory }) {
+function CategoryForm({ menuCategory, menuCategories, setMenuCategories, deleteCategory, /*handleCategorySubmit,*/ toggleForm }) {
 	const [ name, setName ] = useState(menuCategory && menuCategory.name);
 	const [ description, setDescription ] = useState(menuCategory && menuCategory.description);
+
+	function handleSubmit(e, data) {
+		e.preventDefault();
+		// Add Category
+		if (!data.id) {
+			const rid = Math.floor(Math.random() * 10000) + 1;
+			setMenuCategories([
+				...menuCategories,
+				{
+					id: rid,
+					name: data.name,
+					description: data.description,
+				}
+			]);
+			console.log(data);
+			console.log(menuCategories);
+		}
+		// Edit Category
+		else {
+			setMenuCategories(
+				menuCategories.map((menuCategory) => 
+					menuCategory.id === data.id ?
+					{
+						...menuCategory,
+						name: data.name,
+						description: data.description,
+					} :
+					menuCategory
+				)
+			);
+			console.log(data);
+			console.log(menuCategories);
+		}
+	}
+
 	// Add Category
-	if (menuCategories) {
+	if (!menuCategory) {
 		return (
-			<form className="category-form">
-				<label for="category-name">Category Name</label><br/>
+			<form
+				className="category-form"
+				onSubmit={(e) => handleSubmit(e, { name: name, description: description })}
+			>
+				<label>Category Name</label><br/>
 				<input
 					type="text"
-					id="category-name"
-					name="category-name"
+					name="name"
+					value={name}
+					onChange={(e) => setName(e.target.value)}
 				/><br/>
-				<label for="category-description">Category Description</label><br/>
+				<label>Category Description</label><br/>
 				<textarea
 					className="category-description"
 					type="text"
-					id="category-description"
-					name="category-description"
+					name="description"
+					value={description}
+					onChange={(e) => setDescription(e.target.value)}
 				/><br/>
-				<button onClick={() => toggleCategoryForm()}>
+				<button onClick={toggleForm}>
 					Cancel
 				</button>
 				<input
@@ -38,32 +78,32 @@ function CategoryForm({ menuCategories, setMenuCategories, menuCategory, setMenu
 	// Edit Category
 	if (menuCategory) {
 		return (
-			<form className="category-form">
-				<label for="category-name">
-					Category Name
-				</label><br/>
+			<form
+				className="category-form"
+				onSubmit={(e) => handleSubmit(e, { id: menuCategory.id, name: name, description: description })}
+			>
+				<label>Category Name</label><br/>
 				<input
 					type="text"
-					id="category-name"
-					name="category-name"
+					name="name"
 					value={name}
 					onChange={(e) => setName(e.target.value)}
 				/><br/>
-				<label for="category-description">
-					Description
-				</label><br/>
+				<label>Description</label><br/>
 				<textarea
 					className="category-description"
 					type="text"
-					id="category-description"
-					name="category-description"
+					name="description"
 					value={description}
 					onChange={(e) => setDescription(e.target.value)}
 				/><br/>
-				<button onClick={() => toggleCategoryForm(menuCategory.id)}>
+				<button onClick={toggleForm}>
 					Cancel
 				</button>
-				<button onClick={() => deleteCategory(menuCategory.id)} style={{ backgroundColor: "crimson" }}>
+				<button
+					onClick={() => deleteCategory(menuCategory.id)}
+					style={{ backgroundColor: "crimson" }}
+				>
 					Delete
 				</button>
 				<input

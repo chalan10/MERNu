@@ -2,7 +2,7 @@ import EditItem from "./EditItem.js";
 import "./Item.css";
 
 //{`$${menuItem.price}`}<br/>
-function Item({ menuItem, setMenuItem, deleteItem, toggleEditItem }) {
+function Item({ menuItem, menuItems, setMenuItems, deleteItem, /*handleItemSubmit*/ }) {
 	return (
 		<div className="item">
 			{menuItem.name}<br/>
@@ -10,9 +10,10 @@ function Item({ menuItem, setMenuItem, deleteItem, toggleEditItem }) {
 			${menuItem.price}<br/>
 			<EditItem
 				menuItem={menuItem}
-				setMenuItem={setMenuItem}
+				setMenuItems={setMenuItems}
 				deleteItem={deleteItem}
-				toggleEditItem={toggleEditItem}
+				//handleItemSubmit={handleItemSubmit}
+				menuItems={menuItems}
 			/>
 		</div>
 	);
