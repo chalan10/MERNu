@@ -3,9 +3,8 @@ import AddItem from "./AddItem.js";
 import EditCategory from "./EditCategory.js";
 import "./Category.css";
 
-function Category({ menuCategory, menuCategories, setMenuCategories, deleteCategory,
-					menuItems, setMenuItems, deleteItem/*,
-					handleCategorySubmit,*/ /*handleItemSubmit*/ }) {
+function Category({ menuCategory, menuCategories, setMenuCategories, toggleEditCategory, deleteCategory, handleCategorySubmit,
+					menuItems, setMenuItems, toggleAddItem, toggleEditItem, deleteItem, handleItemSubmit}) {
 	return (
 		<div className="category">
 			<div className="category-header">
@@ -16,8 +15,9 @@ function Category({ menuCategory, menuCategories, setMenuCategories, deleteCateg
 					menuCategory={menuCategory}
 					menuCategories={menuCategories}
 					setMenuCategories={setMenuCategories}
+					toggleEditCategory={toggleEditCategory}
 					deleteCategory={deleteCategory}
-					//handleCategorySubmit={handleCategorySubmit}
+					handleCategorySubmit={handleCategorySubmit}
 				/>
 			</div>
 			{menuItems.map((item) => {
@@ -27,8 +27,9 @@ function Category({ menuCategory, menuCategories, setMenuCategories, deleteCateg
 							menuItem={item}
 							menuItems={menuItems}
 							setMenuItems={setMenuItems}
+							toggleEditItem={toggleEditItem}
 							deleteItem={deleteItem}
-							//handleItemSubmit={handleItemSubmit}
+							handleItemSubmit={handleItemSubmit}
 						/>
 					);
 				}
@@ -38,7 +39,8 @@ function Category({ menuCategory, menuCategories, setMenuCategories, deleteCateg
 				menuCategory={menuCategory}
 				menuItems={menuItems}
 				setMenuItems={setMenuItems}
-				//handleItemSubmit={handleItemSubmit}
+				toggleAddItem={toggleAddItem}
+				handleItemSubmit={handleItemSubmit}
 			/>
 		</div>
 	);

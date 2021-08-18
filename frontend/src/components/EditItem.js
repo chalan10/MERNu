@@ -1,4 +1,3 @@
-import { useState } from "react";
 import ItemForm from "./ItemForm.js";
 import "./EditItem.css";
 
@@ -14,26 +13,20 @@ import "./EditItem.css";
 	<label>Item Modifiers</label><br/>
 */
 
-function EditItem({ menuItem, menuItems, setMenuItems, deleteItem, /*handleItemSubmit*/ }) {
-	const [ toggle, setToggle ] = useState(false);
-
-	function toggleForm() {
-		setToggle(!toggle);
-	}
-
+function EditItem({ menuItem, menuItems, setMenuItems, toggleEditItem, deleteItem, handleItemSubmit }) {
 	return (
 		<div className="edit-item">
-			<button className="edit-item-btn" onClick={toggleForm}>
+			<button className="edit-item-btn" onClick={() => toggleEditItem(menuItem.id)}>
 				Edit Item Button
 			</button>
-			{toggle &&
+			{menuItem.edit &&
 				<ItemForm
 					menuItem={menuItem}
-					setMenuItems={setMenuItems}
-					deleteItem={deleteItem}
-					//handleItemSubmit={handleItemSubmit}
 					menuItems={menuItems}
-					toggleForm={toggleForm}
+					setMenuItems={setMenuItems}
+					toggleEditItem={toggleEditItem}
+					deleteItem={deleteItem}
+					handleItemSubmit={handleItemSubmit}
 				/>
 			}
 		</div>

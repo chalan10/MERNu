@@ -1,54 +1,17 @@
 import { useState } from "react";
 import "./ItemForm.css";
 
-function ItemForm({ menuCategory, menuItem, menuItems, setMenuItems, deleteItem, toggleForm }) {
+function ItemForm({ menuCategory, menuItem, menuItems, setMenuItems, toggleAddItem, toggleEditItem, deleteItem, handleItemSubmit }) {
 	const [ name, setName ] = useState(menuItem && menuItem.name);
 	const [ description, setDescription ] = useState(menuItem && menuItem.description);
 	const [ price, setPrice ] = useState(menuItem && menuItem.price);
-
-	function handleSubmit(e, data) {
-		e.preventDefault();
-		// Add Item
-		if (!data.id) {
-			const rid = Math.floor(Math.random() * 10000) + 1;
-			setMenuItems([
-				...menuItems,
-				{
-					id: rid,
-					category: data.category,
-					name: data.name,
-					description: data.description,
-					price: data.price,
-				}
-			]);
-			console.log(data);
-			console.log(menuItems);
-		}
-		// Edit Item
-		else {
-			setMenuItems(
-				menuItems.map((menuItem) =>
-					menuItem.id === data.id ?
-					{ 
-						...menuItem,
-						name: data.name,
-						description: data.description,
-						price: data.price,
-					} :
-					menuItem
-				)
-			);
-			console.log(data);
-			console.log(menuItems);
-		}
-	}
 
 	// Add Item
 	if (!menuItem) {
 		return (
 			<form
 				className="item-form"
-				onSubmit={(e) => handleSubmit(e, { category: menuCategory.id, name: name, description: description, price: price })}
+				onSubmit={(e) => handleItemSubmit(e, { category: menuCategory.id, name: name, description: description, price: price })}
 			>
 				<label>Item Name</label><br/>
 				<input
@@ -71,7 +34,7 @@ function ItemForm({ menuCategory, menuItem, menuItems, setMenuItems, deleteItem,
 					value={price}
 					onChange={(e) => setPrice(e.target.value)}
 				/><br/>
-				<button onClick={toggleForm}>
+				<button onClick={() => toggleAddItem(menuCategory.id)}>
 					Cancel
 				</button>
 				<input
@@ -87,7 +50,7 @@ function ItemForm({ menuCategory, menuItem, menuItems, setMenuItems, deleteItem,
 		return (
 			<form
 				className="item-form"
-				onSubmit={(e) => handleSubmit(e, { id: menuItem.id, category: menuItem.category, name: name, description: description, price: price })}
+				onSubmit={(e) => handleItemSubmit(e, { id: menuItem.id, category: menuItem.category, name: name, description: description, price: price })}
 			>
 				<label>Item Name</label><br/>
 				<input
@@ -110,7 +73,7 @@ function ItemForm({ menuCategory, menuItem, menuItems, setMenuItems, deleteItem,
 					value={price}
 					onChange={(e) => setPrice(e.target.value)}
 				/><br/>
-				<button onClick={toggleForm}>
+				<button onClick={() => toggleEditItem(menuItem.id)}>
 					Cancel
 				</button>
 				<button

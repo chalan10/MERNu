@@ -1,38 +1,22 @@
-import { useState } from "react";
 import CategoryForm from "./CategoryForm.js";
 import "./AddCategory.css";
 
-function AddCategory({ menuCategories, setMenuCategories, /*handleCategorySubmit*/ }) {
-	const [ toggle, setToggle ] = useState(false);
-
-	function toggleForm() {
-		setToggle(!toggle);
-	}
-
+function AddCategory({ menuCategories, setMenuCategories, showAddCategory, toggleAddCategory, handleCategorySubmit }) {
 	return (
 		<div className="add-category">
-			<button className="add-category-btn" onClick={toggleForm}>
+			<button className="add-category-btn" onClick={toggleAddCategory}>
 				Add Category
 			</button>
-			{toggle &&
+			{showAddCategory &&
 				<CategoryForm
 					menuCategories={menuCategories}
 					setMenuCategories={setMenuCategories}
-					//handleCategorySubmit={handleCategorySubmit}
-					toggleForm={toggleForm}
+					toggleAddCategory={toggleAddCategory}
+					handleCategorySubmit={handleCategorySubmit}
 				/>
 			}
 		</div>
 	);
 }
-
-/*
-{Test()}
-function Test() {
-	return (
-		<>Testing</>
-	);
-}
-*/
 
 export default AddCategory;

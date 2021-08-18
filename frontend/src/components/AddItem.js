@@ -1,26 +1,19 @@
-import { useState } from "react";
 import ItemForm from "./ItemForm.js";
 import "./AddItem.css";
 
-function AddItem({ menuCategory, /*handleItemSubmit,*/ menuItems, setMenuItems }) {
-	const [ toggle, setToggle ] = useState(false);
-
-	function toggleForm() {
-		setToggle(!toggle);
-	}
-
+function AddItem({ menuCategory, menuItems, setMenuItems, toggleAddItem, handleItemSubmit }) {
 	return (
 		<div className="add-item">
-			<button className="add-item-btn" onClick={toggleForm}>
+			<button className="add-item-btn" onClick={() => toggleAddItem(menuCategory.id)}>
 				<h2>Add Item</h2>
 			</button>
-			{toggle &&
+			{menuCategory.addItem &&
 				<ItemForm
 					menuCategory={menuCategory}
-					//handleItemSubmit={handleItemSubmit}
 					menuItems={menuItems}
 					setMenuItems={setMenuItems}
-					toggleForm={toggleForm}
+					toggleAddItem={toggleAddItem}
+					handleItemSubmit={handleItemSubmit}
 				/>
 			}
 		</div>

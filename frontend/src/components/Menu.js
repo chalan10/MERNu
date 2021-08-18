@@ -10,21 +10,29 @@ function Menu() {
 			id: 1,
 			name: "Appetizers",
 			description: "Appetizers Description",
+			edit: false,
+			addItem: false
 		},
 		{
 			id: 2,
 			name: "Entrees",
 			description: "Entrees Description",
+			edit: false,
+			addItem: false
 		},
 		{
 			id: 3,
 			name: "Dessert",
 			description: "Dessert Description",
+			edit: false,
+			addItem: false
 		},
 		{
 			id: 4,
 			name: "Beverages",
 			description: "Beverages Description",
+			edit: false,
+			addItem: false
 		}
 	]);
 
@@ -35,6 +43,7 @@ function Menu() {
 			name: "French Fries",
 			description: "Appetizer",
 			price: 3.99,
+			edit: false
 		},
 		{
 			id: 2,
@@ -42,6 +51,7 @@ function Menu() {
 			name: "Burger",
 			description: "Entree",
 			price: 8.99,
+			edit: false
 		},
 		{
 			id: 3,
@@ -49,6 +59,7 @@ function Menu() {
 			name: "Ice Cream",
 			description: "Dessert",
 			price: 2.99,
+			edit: false
 		},
 		{
 			id: 4,
@@ -56,8 +67,65 @@ function Menu() {
 			name: "Soda",
 			description: "Beverage",
 			price: 1.99,
+			edit: false
 		}
 	]);
+
+	const [showAddCategory, setShowAddCategory] = useState();
+	function toggleAddCategory() {
+		closeForms();
+		setShowAddCategory(!showAddCategory);
+	}
+
+	function toggleAddItem(id) {
+		closeForms();
+		setMenuCategories(
+			menuCategories.map((menuCategory) =>
+				menuCategory.id === id ?
+				{ ...menuCategory, edit: false, addItem: !menuCategory.addItem } :
+				{ ...menuCategory, edit: false, addItem: false }
+			)
+		);
+	}
+
+	function toggleEditCategory(id) {
+		closeForms();
+		setMenuCategories(
+			menuCategories.map((menuCategory) =>
+				menuCategory.id === id ?
+				{ ...menuCategory, edit: !menuCategory.edit, addItem: false } :
+				{ ...menuCategory, edit: false, addItem: false }
+			)
+		);
+	}
+
+	function toggleEditItem(id) {
+		closeForms();
+		setMenuItems(
+			menuItems.map((menuItem) =>
+				menuItem.id === id ?
+				{ ...menuItem, edit: !menuItem.edit } :
+				{ ...menuItem, edit: false }
+			)
+		);
+	}
+
+	// Closes all forms such that only one form is open at any given time to avoid clutter.
+	function closeForms() {
+		setShowAddCategory(false);
+		setMenuItems(
+			menuItems.map((menuItem) =>
+				menuItem.edit ? { ...menuItem, edit: false } : menuItem
+			)
+		);
+		setMenuCategories(
+			menuCategories.map((menuCategory) =>
+				(menuCategory.edit || menuCategory.addItem) ?
+				{ ...menuCategory, edit: false, addItem: false } :
+				menuCategory
+			)
+		);
+	}
 
 	function deleteCategory(id) {
 		console.log(id);
@@ -69,7 +137,6 @@ function Menu() {
 		setMenuItems(menuItems.filter((menuItem) => menuItem.id !== id));
 	}
 
-	/*
 	function handleCategorySubmit(e, data) {
 		e.preventDefault();
 		// Add Category
@@ -80,32 +147,30 @@ function Menu() {
 				{
 					id: rid,
 					name: data.name,
-					description: data.description,
+					description: data.description
 				}
 			]);
-			console.log(data);
-			console.log(menuCategories);
+			//console.log(data);
+			//console.log(menuCategories);
 		}
 		// Edit Category
 		else {
 			setMenuCategories(
 				menuCategories.map((menuCategory) => 
-					menuCategory.id === data.id
-					? {
+					menuCategory.id === data.id ?
+					{
 						...menuCategory,
 						name: data.name,
 						description: data.description
-					}
-					: menuCategory
+					} :
+					menuCategory
 				)
 			);
-			console.log(data);
-			console.log(menuCategories);
+			//console.log(data);
+			//console.log(menuCategories);
 		}
 	}
-	*/
 
-	/*
 	function handleItemSubmit(e, data) {
 		e.preventDefault();
 		// Add Item
@@ -118,31 +183,30 @@ function Menu() {
 					category: data.category,
 					name: data.name,
 					description: data.description,
-					price: data.price,
+					price: data.price
 				}
 			]);
-			console.log(data);
-			console.log(menuItems);
+			//console.log(data);
+			//console.log(menuItems);
 		}
 		// Edit Item
 		else {
 			setMenuItems(
 				menuItems.map((menuItem) =>
-					menuItem.id === data.id
-					? { 
+					menuItem.id === data.id ?
+					{ 
 						...menuItem,
 						name: data.name,
 						description: data.description,
-						price: data.price,
-					}
-					: menuItem
+						price: data.price
+					} :
+					menuItem
 				)
 			);
-			console.log(data);
-			console.log(menuItems);
+			//console.log(data);
+			//console.log(menuItems);
 		}
 	}
-	*/
 
 	return(
 		<div className="menu">
@@ -151,7 +215,9 @@ function Menu() {
 				<AddCategory
 					menuCategories={menuCategories}
 					setMenuCategories={setMenuCategories}
-					//handleCategorySubmit={handleCategorySubmit}
+					showAddCategory={showAddCategory}
+					toggleAddCategory={toggleAddCategory}
+					handleCategorySubmit={handleCategorySubmit}
 				/>
 			</div>
 			<div className="menu-categories">
@@ -161,12 +227,15 @@ function Menu() {
 							menuCategory={menuCategory}
 							menuCategories={menuCategories}
 							setMenuCategories={setMenuCategories}
+							toggleEditCategory={toggleEditCategory}
 							deleteCategory={deleteCategory}
+							handleCategorySubmit={handleCategorySubmit}
 							menuItems={menuItems}
 							setMenuItems={setMenuItems}
+							toggleAddItem={toggleAddItem}
+							toggleEditItem={toggleEditItem}
 							deleteItem={deleteItem}
-							//handleCategorySubmit={handleCategorySubmit}
-							//handleItemSubmit={handleItemSubmit}
+							handleItemSubmit={handleItemSubmit}
 						/>
 					);
 				})}
