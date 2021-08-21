@@ -20,11 +20,11 @@ function Category({ menuCategory, menuCategories, setMenuCategories, toggleEditC
 					handleCategorySubmit={handleCategorySubmit}
 				/>
 			</div>
-			{menuItems.map((item) => {
-				if (item.id === menuCategory.id) {
+			{menuItems.map((menuItem) => {
+				if (menuItem.id === menuCategory.id) {
 					return (
 						<Item
-							menuItem={item}
+							menuItem={menuItem}
 							menuItems={menuItems}
 							setMenuItems={setMenuItems}
 							toggleEditItem={toggleEditItem}

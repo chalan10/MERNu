@@ -11,7 +11,9 @@ function ItemForm({ menuCategory, menuItem, menuItems, setMenuItems, toggleAddIt
 		return (
 			<form
 				className="item-form"
-				onSubmit={(e) => handleItemSubmit(e, { category: menuCategory.id, name: name, description: description, price: price })}
+				onSubmit={(e) => handleItemSubmit(e, {
+					category: menuCategory.id, name: name, description: description, price: price
+				})}
 			>
 				<label>Item Name</label><br/>
 				<input

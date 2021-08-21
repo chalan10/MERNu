@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Category from "./Category.js";
 import AddCategory from "./AddCategory.js";
 import "./Menu.css";
@@ -6,6 +6,7 @@ import "./Menu.css";
 function Menu() {
 	// TODO: use nested state or two separate states for category and item?
 	const [ menuCategories, setMenuCategories ] = useState([
+		/*
 		{
 			id: 1,
 			name: "Appetizers",
@@ -34,9 +35,11 @@ function Menu() {
 			edit: false,
 			addItem: false
 		}
+		*/
 	]);
 
 	const [ menuItems, setMenuItems ] = useState([
+		/*
 		{
 			id: 1,
 			category: 1,
@@ -69,6 +72,7 @@ function Menu() {
 			price: 1.99,
 			edit: false
 		}
+		*/
 	]);
 
 	const [showAddCategory, setShowAddCategory] = useState();
@@ -76,6 +80,11 @@ function Menu() {
 		closeForms();
 		setShowAddCategory(!showAddCategory);
 	}
+
+	// TODO: maybe have a single AddItem form like AddCategory instead of one per category
+	// we're still having the issue of AddItem not actually rendering a new item,
+	// console shows that we are adding to the menuItems list, but nothing new
+	// is rendering on screen
 
 	function toggleAddItem(id) {
 		closeForms();
@@ -142,16 +151,16 @@ function Menu() {
 		// Add Category
 		if (!data.id) {
 			const rid = Math.floor(Math.random() * 10000) + 1;
-			setMenuCategories([
-				...menuCategories,
-				{
-					id: rid,
-					name: data.name,
-					description: data.description
-				}
-			]);
+			const newCategory = {
+				id: rid,
+				name: data.name,
+				description: data.description,
+				edit: false,
+				addItem: false
+			};
+			setMenuCategories([...menuCategories, newCategory]);
 			//console.log(data);
-			//console.log(menuCategories);
+			console.log(menuCategories);
 		}
 		// Edit Category
 		else {
@@ -169,6 +178,7 @@ function Menu() {
 			//console.log(data);
 			//console.log(menuCategories);
 		}
+		//closeForms();
 	}
 
 	function handleItemSubmit(e, data) {
@@ -176,18 +186,17 @@ function Menu() {
 		// Add Item
 		if (!data.id) {
 			const rid = Math.floor(Math.random() * 10000) + 1;
-			setMenuItems([
-				...menuItems,
-				{
-					id: rid,
-					category: data.category,
-					name: data.name,
-					description: data.description,
-					price: data.price
-				}
-			]);
+			const newItem = {
+				id: rid,
+				category: data.category,
+				name: data.name,
+				description: data.description,
+				price: parseFloat(data.price),
+				edit: false
+			};
+			setMenuItems([...menuItems, newItem]);
 			//console.log(data);
-			//console.log(menuItems);
+			console.log(menuItems);
 		}
 		// Edit Item
 		else {
@@ -206,8 +215,84 @@ function Menu() {
 			//console.log(data);
 			//console.log(menuItems);
 		}
+		//closeForms();
 	}
 
+	/*
+	useEffect(() => {
+		const getTasks = async () => {
+			const tasksFromServer = await fetchTasks();
+			//setTasks(tasksFromServer);
+		}
+
+		getTasks();
+	}, []);
+
+	// TODO: use .then or async/await
+	const fetchTasks = async () => {
+		const res = await fetch("http://localhost:5000/api/items");
+		const data = await res.json();
+
+		console.log("fetching data...");
+		console.log(data);
+		return data;
+	};
+	*/
+
+	//function fetchData() {
+	/*
+	var data = "nothing";
+	useEffect(() => {
+		data = fetch("http://localhost:5000");
+		//const data = res.json();
+		console.log("fetching data...");
+		console.log(data);
+		return data;
+	}, []);
+	*/
+
+	/* WORKS: backend connection from we first tried it with flask
+	const [ message, setMessage ] = useState(0);
+	useEffect(() => {
+		fetch("http://localhost:5000/")
+			.then(res => res.json())
+			.then(data => {
+				console.log(data)
+				setMessage(data.msg)
+			});
+	}, []);
+	*/
+
+	/* WORKS: this works too
+	useEffect(() => {
+		const fetchData = async () => {
+			const res = await fetch("http://localhost:5000/");
+			const data = await res.json();
+
+			console.log(data);
+		}
+
+		fetchData();
+	}, []);
+	*/
+
+	// Fetch Categories
+	useEffect(() => {
+		fetch("http://localhost:5000/")
+			.then(res => res.json())
+			.then(data => {
+				console.log(data);
+				setMenuCategories(data.categories);
+				setMenuItems(data.items);
+			});
+	}, []);
+
+	/*
+			<div>
+				<h2>Backend Test</h2>
+				{message}
+			</div>
+	*/
 	return(
 		<div className="menu">
 			<div className="menu-header">
