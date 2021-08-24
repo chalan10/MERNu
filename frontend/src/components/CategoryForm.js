@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./CategoryForm.css"
 
-function CategoryForm({ menuCategory, menuCategories, setMenuCategories, toggleAddCategory, toggleEditCategory, deleteCategory, handleCategorySubmit }) {
+function CategoryForm({ menu, setMenu, menuCategory, toggleAddCategory, toggleEditCategory, deleteCategory, handleCategorySubmit }) {
 	const [ name, setName ] = useState(menuCategory && menuCategory.name);
 	const [ description, setDescription ] = useState(menuCategory && menuCategory.description);
 
@@ -43,7 +43,7 @@ function CategoryForm({ menuCategory, menuCategories, setMenuCategories, toggleA
 		return (
 			<form
 				className="category-form"
-				onSubmit={(e) => handleCategorySubmit(e, { id: menuCategory.id, name: name, description: description })}
+				onSubmit={(e) => handleCategorySubmit(e, { cid: menuCategory.id, name: name, description: description })}
 			>
 				<label>Category Name</label><br/>
 				<input

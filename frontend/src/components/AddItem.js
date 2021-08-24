@@ -1,7 +1,7 @@
 import ItemForm from "./ItemForm.js";
 import "./AddItem.css";
 
-function AddItem({ menuCategory, menuItems, setMenuItems, toggleAddItem, handleItemSubmit }) {
+function AddItem({ menu, setMenu, menuCategory, toggleAddItem, handleItemSubmit }) {
 	return (
 		<div className="add-item">
 			<button className="add-item-btn" onClick={() => toggleAddItem(menuCategory.id)}>
@@ -9,9 +9,9 @@ function AddItem({ menuCategory, menuItems, setMenuItems, toggleAddItem, handleI
 			</button>
 			{menuCategory.addItem &&
 				<ItemForm
+					menu={menu}
+					setMenu={setMenu}
 					menuCategory={menuCategory}
-					menuItems={menuItems}
-					setMenuItems={setMenuItems}
 					toggleAddItem={toggleAddItem}
 					handleItemSubmit={handleItemSubmit}
 				/>

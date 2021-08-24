@@ -4,80 +4,94 @@ import AddCategory from "./AddCategory.js";
 import "./Menu.css";
 
 function Menu() {
-	// TODO: use nested state or two separate states for category and item?
-	const [ menuCategories, setMenuCategories ] = useState([
-		/*
+	const [ menu, setMenu ] = useState([
 		{
 			id: 1,
 			name: "Appetizers",
 			description: "Appetizers Description",
 			edit: false,
-			addItem: false
+			addItem: false,
+			items: [
+				{
+					id: 1,
+					category: 1,
+					name: "French Fries",
+					description: "Appetizer",
+					price: 3.99,
+					edit: false
+				}
+			]
 		},
 		{
 			id: 2,
 			name: "Entrees",
 			description: "Entrees Description",
 			edit: false,
-			addItem: false
+			addItem: false,
+			items: [
+				{
+					id: 2,
+					category: 2,
+					name: "Burger",
+					description: "Entree",
+					price: 8.99,
+					edit: false
+				}
+			]
 		},
 		{
 			id: 3,
 			name: "Dessert",
 			description: "Dessert Description",
 			edit: false,
-			addItem: false
+			addItem: false,
+			items: [
+				{
+					id: 3,
+					category: 3,
+					name: "Ice Cream",
+					description: "Dessert",
+					price: 2.99,
+					edit: false
+				}
+			]
 		},
 		{
 			id: 4,
 			name: "Beverages",
 			description: "Beverages Description",
 			edit: false,
-			addItem: false
+			addItem: false,
+			items: [
+				{
+					id: 4,
+					category: 4,
+					name: "Soda",
+					description: "Beverage",
+					price: 1.99,
+					edit: false
+				}
+			]
 		}
-		*/
 	]);
 
-	const [ menuItems, setMenuItems ] = useState([
-		/*
-		{
-			id: 1,
-			category: 1,
-			name: "French Fries",
-			description: "Appetizer",
-			price: 3.99,
-			edit: false
-		},
-		{
-			id: 2,
-			category: 2,
-			name: "Burger",
-			description: "Entree",
-			price: 8.99,
-			edit: false
-		},
-		{
-			id: 3,
-			category: 3,
-			name: "Ice Cream",
-			description: "Dessert",
-			price: 2.99,
-			edit: false
-		},
-		{
-			id: 4,
-			category: 4,
-			name: "Soda",
-			description: "Beverage",
-			price: 1.99,
-			edit: false
-		}
-		*/
-	]);
-
-	const [showAddCategory, setShowAddCategory] = useState();
+	const [ showAddCategory, setShowAddCategory ] = useState();
 	function toggleAddCategory() {
-		closeForms();
+		setMenu(
+			menu.map(menuCategory =>
+				({
+					...menuCategory,
+					items: menuCategory.items.map(menuItem =>
+						({
+							...menuItem,
+							edit: false
+						})
+					),
+					edit: false,
+					addItem: false
+				})
+			)
+		);
 		setShowAddCategory(!showAddCategory);
 	}
 
@@ -86,87 +100,147 @@ function Menu() {
 	// console shows that we are adding to the menuItems list, but nothing new
 	// is rendering on screen
 
-	function toggleAddItem(id) {
-		closeForms();
-		setMenuCategories(
-			menuCategories.map((menuCategory) =>
-				menuCategory.id === id ?
-				{ ...menuCategory, edit: false, addItem: !menuCategory.addItem } :
-				{ ...menuCategory, edit: false, addItem: false }
+	function toggleAddItem(cid) {
+		setShowAddCategory(false);
+		setMenu(
+			menu.map((menuCategory) =>
+				menuCategory.id === cid ?
+				{
+					...menuCategory,
+					items: menuCategory.items.map(menuItem =>
+						({
+							...menuItem,
+							edit: false
+						})
+					),
+					edit: false,
+					addItem: !menuCategory.addItem
+				} :
+				{
+					...menuCategory,
+					items: menuCategory.items.map(menuItem =>
+						({
+							...menuItem,
+							edit: false
+						})
+					),
+					edit: false,
+					addItem: false
+				}
 			)
 		);
 	}
 
-	function toggleEditCategory(id) {
-		closeForms();
-		setMenuCategories(
-			menuCategories.map((menuCategory) =>
-				menuCategory.id === id ?
-				{ ...menuCategory, edit: !menuCategory.edit, addItem: false } :
-				{ ...menuCategory, edit: false, addItem: false }
+	function toggleEditCategory(cid) {
+		setShowAddCategory(false);
+		setMenu(
+			menu.map((menuCategory) =>
+				menuCategory.id === cid ?
+				{
+					...menuCategory,
+					items: menuCategory.items.map(menuItem =>
+						({
+							...menuItem,
+							edit: false
+						})
+					),
+					edit: !menuCategory.edit,
+					addItem: false
+				} :
+				{
+					...menuCategory,
+					items: menuCategory.items.map(menuItem =>
+						({
+							...menuItem,
+							edit: false
+						})
+					),
+					edit: false,
+					addItem: false
+				}
 			)
 		);
 	}
 
-	function toggleEditItem(id) {
-		closeForms();
-		setMenuItems(
-			menuItems.map((menuItem) =>
-				menuItem.id === id ?
-				{ ...menuItem, edit: !menuItem.edit } :
-				{ ...menuItem, edit: false }
+	function toggleEditItem(cid, iid) {
+		setShowAddCategory(false);
+		setMenu(
+			menu.map(menuCategory =>
+				({
+					...menuCategory,
+					items: menuCategory.items.map(menuItem =>
+						(menuCategory.id === cid && menuItem.id === iid) ?
+						{ ...menuItem, edit: !menuItem.edit } :
+						{ ...menuItem, edit: false }
+					),
+					edit: false,
+					addItem: false
+				})
 			)
 		);
 	}
+
+	// TODO: clean this up, too much redundancy; might need to just hardcode it
+	// for every instance we need to close forms, including after submitting bc
+	// closeForms() not working in those cases
 
 	// Closes all forms such that only one form is open at any given time to avoid clutter.
 	function closeForms() {
 		setShowAddCategory(false);
-		setMenuItems(
-			menuItems.map((menuItem) =>
-				menuItem.edit ? { ...menuItem, edit: false } : menuItem
-			)
-		);
-		setMenuCategories(
-			menuCategories.map((menuCategory) =>
-				(menuCategory.edit || menuCategory.addItem) ?
-				{ ...menuCategory, edit: false, addItem: false } :
-				menuCategory
+		setMenu(
+			menu.map(menuCategory =>
+				({
+					...menuCategory,
+					items: menuCategory.items.map(menuItem =>
+						({
+							...menuItem,
+							edit: false
+						})
+					),
+					edit: false,
+					addItem: false
+				})
 			)
 		);
 	}
 
-	function deleteCategory(id) {
-		console.log(id);
-		setMenuItems(menuItems.filter((menuItem) => menuItem.category !== id));
-		setMenuCategories(menuCategories.filter((menuCategory) => menuCategory.id !== id));
+	function deleteCategory(cid) {
+		setMenu(menu.filter(menuCategory => menuCategory.id !== cid));
 	}
 
-	function deleteItem(id) {
-		setMenuItems(menuItems.filter((menuItem) => menuItem.id !== id));
+	function deleteItem(iid) {
+		setMenu(
+			menu.map(menuCategory =>
+				({
+					...menuCategory,
+					items: menuCategory.items.filter(menuItem => menuItem.id !== iid)
+				})
+			)
+		);
 	}
 
 	function handleCategorySubmit(e, data) {
 		e.preventDefault();
 		// Add Category
-		if (!data.id) {
+		if (!data.cid) {
 			const rid = Math.floor(Math.random() * 10000) + 1;
 			const newCategory = {
 				id: rid,
 				name: data.name,
 				description: data.description,
+				items: [],
 				edit: false,
 				addItem: false
 			};
-			setMenuCategories([...menuCategories, newCategory]);
+			setMenu([ ...menu, newCategory ]);
 			//console.log(data);
-			console.log(menuCategories);
+			console.log(menu);
 		}
 		// Edit Category
 		else {
-			setMenuCategories(
-				menuCategories.map((menuCategory) => 
-					menuCategory.id === data.id ?
+			setMenu(
+				menu.map((menuCategory) => 
+					menuCategory.id === data.cid ?
 					{
 						...menuCategory,
 						name: data.name,
@@ -176,7 +250,7 @@ function Menu() {
 				)
 			);
 			//console.log(data);
-			//console.log(menuCategories);
+			//console.log(menu);
 		}
 		//closeForms();
 	}
@@ -184,32 +258,44 @@ function Menu() {
 	function handleItemSubmit(e, data) {
 		e.preventDefault();
 		// Add Item
-		if (!data.id) {
+		if (!data.iid) {
 			const rid = Math.floor(Math.random() * 10000) + 1;
 			const newItem = {
 				id: rid,
-				category: data.category,
+				category: data.cid,
 				name: data.name,
 				description: data.description,
 				price: parseFloat(data.price),
 				edit: false
 			};
-			setMenuItems([...menuItems, newItem]);
+			//setMenu([ ...menuItems, newItem ]);
+			setMenu(
+				menu.map(menuCategory =>
+					menuCategory.id === data.cid ?
+					{
+						...menuCategory,
+						items: [ ...menuCategory.items, newItem ]
+					} :
+					menuCategory
+				)
+			);
 			//console.log(data);
-			console.log(menuItems);
+			//console.log(menuItems);
 		}
 		// Edit Item
 		else {
-			setMenuItems(
-				menuItems.map((menuItem) =>
-					menuItem.id === data.id ?
-					{ 
-						...menuItem,
-						name: data.name,
-						description: data.description,
-						price: data.price
-					} :
-					menuItem
+			setMenu(
+				menu.map(menuCategory =>
+					menuCategory.items.map(menuItem =>
+						menuItem.id === data.id ?
+						{ 
+							...menuItem,
+							name: data.name,
+							description: data.description,
+							price: data.price
+						} :
+						menuItem
+					)
 				)
 			);
 			//console.log(data);
@@ -217,39 +303,6 @@ function Menu() {
 		}
 		//closeForms();
 	}
-
-	/*
-	useEffect(() => {
-		const getTasks = async () => {
-			const tasksFromServer = await fetchTasks();
-			//setTasks(tasksFromServer);
-		}
-
-		getTasks();
-	}, []);
-
-	// TODO: use .then or async/await
-	const fetchTasks = async () => {
-		const res = await fetch("http://localhost:5000/api/items");
-		const data = await res.json();
-
-		console.log("fetching data...");
-		console.log(data);
-		return data;
-	};
-	*/
-
-	//function fetchData() {
-	/*
-	var data = "nothing";
-	useEffect(() => {
-		data = fetch("http://localhost:5000");
-		//const data = res.json();
-		console.log("fetching data...");
-		console.log(data);
-		return data;
-	}, []);
-	*/
 
 	/* WORKS: backend connection from we first tried it with flask
 	const [ message, setMessage ] = useState(0);
@@ -277,6 +330,7 @@ function Menu() {
 	*/
 
 	// Fetch Categories
+	/*
 	useEffect(() => {
 		fetch("http://localhost:5000/")
 			.then(res => res.json())
@@ -286,6 +340,7 @@ function Menu() {
 				setMenuItems(data.items);
 			});
 	}, []);
+	*/
 
 	/*
 			<div>
@@ -298,25 +353,23 @@ function Menu() {
 			<div className="menu-header">
 				<h2>Menu</h2>
 				<AddCategory
-					menuCategories={menuCategories}
-					setMenuCategories={setMenuCategories}
+					menu={menu}
+					setMenu={setMenu}
 					showAddCategory={showAddCategory}
 					toggleAddCategory={toggleAddCategory}
 					handleCategorySubmit={handleCategorySubmit}
 				/>
 			</div>
 			<div className="menu-categories">
-				{menuCategories.map((menuCategory) => {
+				{menu.map((menuCategory) => {
 					return (
 						<Category
+							menu={menu}
+							setMenu={setMenu}
 							menuCategory={menuCategory}
-							menuCategories={menuCategories}
-							setMenuCategories={setMenuCategories}
 							toggleEditCategory={toggleEditCategory}
 							deleteCategory={deleteCategory}
 							handleCategorySubmit={handleCategorySubmit}
-							menuItems={menuItems}
-							setMenuItems={setMenuItems}
 							toggleAddItem={toggleAddItem}
 							toggleEditItem={toggleEditItem}
 							deleteItem={deleteItem}

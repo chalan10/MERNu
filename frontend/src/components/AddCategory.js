@@ -1,7 +1,7 @@
 import CategoryForm from "./CategoryForm.js";
 import "./AddCategory.css";
 
-function AddCategory({ menuCategories, setMenuCategories, showAddCategory, toggleAddCategory, handleCategorySubmit }) {
+function AddCategory({ menu, setMenu, showAddCategory, toggleAddCategory, handleCategorySubmit }) {
 	return (
 		<div className="add-category">
 			<button className="add-category-btn" onClick={toggleAddCategory}>
@@ -9,8 +9,8 @@ function AddCategory({ menuCategories, setMenuCategories, showAddCategory, toggl
 			</button>
 			{showAddCategory &&
 				<CategoryForm
-					menuCategories={menuCategories}
-					setMenuCategories={setMenuCategories}
+					menu={menu}
+					setMenu={setMenu}
 					toggleAddCategory={toggleAddCategory}
 					handleCategorySubmit={handleCategorySubmit}
 				/>

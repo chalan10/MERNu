@@ -3,8 +3,8 @@ import AddItem from "./AddItem.js";
 import EditCategory from "./EditCategory.js";
 import "./Category.css";
 
-function Category({ menuCategory, menuCategories, setMenuCategories, toggleEditCategory, deleteCategory, handleCategorySubmit,
-					menuItems, setMenuItems, toggleAddItem, toggleEditItem, deleteItem, handleItemSubmit}) {
+function Category({ menu, setMenu, menuCategory, toggleEditCategory, deleteCategory, handleCategorySubmit,
+					toggleAddItem, toggleEditItem, deleteItem, handleItemSubmit}) {
 	return (
 		<div className="category">
 			<div className="category-header">
@@ -12,33 +12,31 @@ function Category({ menuCategory, menuCategories, setMenuCategories, toggleEditC
 					{menuCategory.name}
 				</h2>
 				<EditCategory
+					menu={menu}
+					setMenu={setMenu}
 					menuCategory={menuCategory}
-					menuCategories={menuCategories}
-					setMenuCategories={setMenuCategories}
 					toggleEditCategory={toggleEditCategory}
 					deleteCategory={deleteCategory}
 					handleCategorySubmit={handleCategorySubmit}
 				/>
 			</div>
-			{menuItems.map((menuItem) => {
-				if (menuItem.id === menuCategory.id) {
-					return (
-						<Item
-							menuItem={menuItem}
-							menuItems={menuItems}
-							setMenuItems={setMenuItems}
-							toggleEditItem={toggleEditItem}
-							deleteItem={deleteItem}
-							handleItemSubmit={handleItemSubmit}
-						/>
-					);
-				}
-				return null;
+			{menuCategory.items.map((menuItem) => {
+				return (
+					<Item
+						menu={menu}
+						setMenu={setMenu}
+						menuCategory={menuCategory}
+						menuItem={menuItem}
+						toggleEditItem={toggleEditItem}
+						deleteItem={deleteItem}
+						handleItemSubmit={handleItemSubmit}
+					/>
+				);
 			})}
 			<AddItem
+				menu={menu}
+				setMenu={setMenu}
 				menuCategory={menuCategory}
-				menuItems={menuItems}
-				setMenuItems={setMenuItems}
 				toggleAddItem={toggleAddItem}
 				handleItemSubmit={handleItemSubmit}
 			/>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./ItemForm.css";
 
-function ItemForm({ menuCategory, menuItem, menuItems, setMenuItems, toggleAddItem, toggleEditItem, deleteItem, handleItemSubmit }) {
+function ItemForm({ menu, setMenu, menuCategory, menuItem, toggleAddItem, toggleEditItem, deleteItem, handleItemSubmit }) {
 	const [ name, setName ] = useState(menuItem && menuItem.name);
 	const [ description, setDescription ] = useState(menuItem && menuItem.description);
 	const [ price, setPrice ] = useState(menuItem && menuItem.price);
@@ -12,7 +12,7 @@ function ItemForm({ menuCategory, menuItem, menuItems, setMenuItems, toggleAddIt
 			<form
 				className="item-form"
 				onSubmit={(e) => handleItemSubmit(e, {
-					category: menuCategory.id, name: name, description: description, price: price
+					cid: menuCategory.id, name: name, description: description, price: price
 				})}
 			>
 				<label>Item Name</label><br/>
@@ -52,7 +52,7 @@ function ItemForm({ menuCategory, menuItem, menuItems, setMenuItems, toggleAddIt
 		return (
 			<form
 				className="item-form"
-				onSubmit={(e) => handleItemSubmit(e, { id: menuItem.id, category: menuItem.category, name: name, description: description, price: price })}
+				onSubmit={(e) => handleItemSubmit(e, { iid: menuItem.id, cid: menuItem.category, name: name, description: description, price: price })}
 			>
 				<label>Item Name</label><br/>
 				<input
@@ -75,7 +75,7 @@ function ItemForm({ menuCategory, menuItem, menuItems, setMenuItems, toggleAddIt
 					value={price}
 					onChange={(e) => setPrice(e.target.value)}
 				/><br/>
-				<button onClick={() => toggleEditItem(menuItem.id)}>
+				<button onClick={() => toggleEditItem(menuCategory.id, menuItem.id)}>
 					Cancel
 				</button>
 				<button
