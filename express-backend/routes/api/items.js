@@ -8,7 +8,6 @@ const Item = require("../../models/Item.js");
 // GET /api/items
 router.get("/", (req, res) => {
 	Item.find()
-		.sort({ date: -1 })
 		.then(items => res.json(items));
 });
 
@@ -16,6 +15,7 @@ router.get("/", (req, res) => {
 // POST /api/items
 router.post("/", (req, res) => {
 	const newItem = new Item({
+		id: req.body.id,
 		name: req.body.name
 	});
 

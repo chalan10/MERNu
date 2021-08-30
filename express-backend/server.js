@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+
 /*
 const session = require("express-session");
 // Session
@@ -15,6 +16,8 @@ app.use(session({
 */
 
 const items = require("./routes/api/items.js");
+const categories = require("./routes/api/categories.js");
+const menu = require("./routes/api/menu.js");
 
 const app = express();
 app.use(cors());
@@ -25,7 +28,7 @@ app.use(bodyParser.json());
 // DB Config
 const db = require("./config/config.js").MONGO_URI;
 
-// Connect to Mongo
+// Connect to MongoDB
 mongoose
 	.connect(db)
 	.then(() => console.log("MongoDB Connected"))
@@ -34,6 +37,8 @@ mongoose
 // Routes
 app.use("/", require("./routes/index.js"));
 app.use("/api/items", require("./routes/api/items.js"));
+app.use("/api/categories", require("./routes/api/categories.js"));
+app.use("/api/menu", require("./routes/api/menu.js"));
 
 const PORT = process.env.PORT || 5000;
 

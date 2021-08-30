@@ -1,81 +1,13 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 import Category from "./Category.js";
 import AddCategory from "./AddCategory.js";
 import "./Menu.css";
 
 function Menu() {
-	const [ menu, setMenu ] = useState([
-		{
-			id: 1,
-			name: "Appetizers",
-			description: "Appetizers Description",
-			edit: false,
-			addItem: false,
-			items: [
-				{
-					id: 1,
-					category: 1,
-					name: "French Fries",
-					description: "Appetizer",
-					price: 3.99,
-					edit: false
-				}
-			]
-		},
-		{
-			id: 2,
-			name: "Entrees",
-			description: "Entrees Description",
-			edit: false,
-			addItem: false,
-			items: [
-				{
-					id: 2,
-					category: 2,
-					name: "Burger",
-					description: "Entree",
-					price: 8.99,
-					edit: false
-				}
-			]
-		},
-		{
-			id: 3,
-			name: "Dessert",
-			description: "Dessert Description",
-			edit: false,
-			addItem: false,
-			items: [
-				{
-					id: 3,
-					category: 3,
-					name: "Ice Cream",
-					description: "Dessert",
-					price: 2.99,
-					edit: false
-				}
-			]
-		},
-		{
-			id: 4,
-			name: "Beverages",
-			description: "Beverages Description",
-			edit: false,
-			addItem: false,
-			items: [
-				{
-					id: 4,
-					category: 4,
-					name: "Soda",
-					description: "Beverage",
-					price: 1.99,
-					edit: false
-				}
-			]
-		}
-	]);
+	const [ menu, setMenu ] = useState([]);
 
-	const [ showAddCategory, setShowAddCategory ] = useState();
+	const [ showAddCategory, setShowAddCategory ] = useState(false);
 	function toggleAddCategory() {
 		setMenu(
 			menu.map(menuCategory =>
@@ -95,15 +27,10 @@ function Menu() {
 		setShowAddCategory(!showAddCategory);
 	}
 
-	// TODO: maybe have a single AddItem form like AddCategory instead of one per category
-	// we're still having the issue of AddItem not actually rendering a new item,
-	// console shows that we are adding to the menuItems list, but nothing new
-	// is rendering on screen
-
 	function toggleAddItem(cid) {
 		setShowAddCategory(false);
 		setMenu(
-			menu.map((menuCategory) =>
+			menu.map(menuCategory =>
 				menuCategory.id === cid ?
 				{
 					...menuCategory,
@@ -134,7 +61,7 @@ function Menu() {
 	function toggleEditCategory(cid) {
 		setShowAddCategory(false);
 		setMenu(
-			menu.map((menuCategory) =>
+			menu.map(menuCategory =>
 				menuCategory.id === cid ?
 				{
 					...menuCategory,
@@ -162,20 +89,33 @@ function Menu() {
 		);
 	}
 
+	// TODO: item id contained by category or by menu?
 	function toggleEditItem(cid, iid) {
 		setShowAddCategory(false);
 		setMenu(
 			menu.map(menuCategory =>
-				({
+				menuCategory.id === cid ?
+				{
 					...menuCategory,
 					items: menuCategory.items.map(menuItem =>
-						(menuCategory.id === cid && menuItem.id === iid) ?
+						menuItem.id === iid ?
 						{ ...menuItem, edit: !menuItem.edit } :
 						{ ...menuItem, edit: false }
 					),
 					edit: false,
 					addItem: false
-				})
+				} :
+				{
+					...menuCategory,
+					items: menuCategory.items.map(menuItem =>
+						({
+							...menuItem,
+							edit: false
+						})
+					),
+					edit: false,
+					addItem: false
+				}
 			)
 		);
 	}
@@ -223,6 +163,7 @@ function Menu() {
 		e.preventDefault();
 		// Add Category
 		if (!data.cid) {
+			/*
 			const rid = Math.floor(Math.random() * 10000) + 1;
 			const newCategory = {
 				id: rid,
@@ -233,8 +174,27 @@ function Menu() {
 				addItem: false
 			};
 			setMenu([ ...menu, newCategory ]);
-			//console.log(data);
 			console.log(menu);
+			setShowAddCategory(false);
+			*/
+			const rid = Math.floor(Math.random() * 10000) + 1;
+			const newCategory = {
+				id: rid,
+				name: data.name,
+				description: data.description,
+				items: [],
+				edit: false,
+				addItem: false
+			};
+			axios.post("http://localhost:5000/api/menu/", newCategory)
+				.then(res => {
+					console.log("Add Category", res);
+					console.log(res.data);
+					setMenu([ ...menu, newCategory ]);
+					console.log("Menu", menu);
+					setShowAddCategory(false);
+				})
+				.catch(err => console.log(err))
 		}
 		// Edit Category
 		else {
@@ -244,13 +204,13 @@ function Menu() {
 					{
 						...menuCategory,
 						name: data.name,
-						description: data.description
+						description: data.description,
+						edit: false,
+						addItem: false
 					} :
 					menuCategory
 				)
 			);
-			//console.log(data);
-			//console.log(menu);
 		}
 		//closeForms();
 	}
@@ -268,38 +228,41 @@ function Menu() {
 				price: parseFloat(data.price),
 				edit: false
 			};
-			//setMenu([ ...menuItems, newItem ]);
 			setMenu(
 				menu.map(menuCategory =>
 					menuCategory.id === data.cid ?
 					{
 						...menuCategory,
-						items: [ ...menuCategory.items, newItem ]
+						items: [ ...menuCategory.items, newItem ],
+						edit: false,
+						addItem: false
 					} :
 					menuCategory
 				)
 			);
-			//console.log(data);
-			//console.log(menuItems);
 		}
 		// Edit Item
 		else {
 			setMenu(
 				menu.map(menuCategory =>
-					menuCategory.items.map(menuItem =>
-						menuItem.id === data.id ?
-						{ 
-							...menuItem,
-							name: data.name,
-							description: data.description,
-							price: data.price
-						} :
-						menuItem
-					)
+					({
+						...menuCategory,
+						items: menuCategory.items.map(menuItem =>
+							menuItem.id === data.iid ?
+							{ 
+								...menuItem,
+								name: data.name,
+								description: data.description,
+								price: data.price,
+								edit: false
+							} :
+							menuItem
+						),
+						edit: false,
+						addItem: false
+					})
 				)
 			);
-			//console.log(data);
-			//console.log(menuItems);
 		}
 		//closeForms();
 	}
@@ -329,16 +292,54 @@ function Menu() {
 	}, []);
 	*/
 
-	// Fetch Categories
-	/*
+	/* Fetch Menu
 	useEffect(() => {
 		fetch("http://localhost:5000/")
 			.then(res => res.json())
 			.then(data => {
 				console.log(data);
-				setMenuCategories(data.categories);
-				setMenuItems(data.items);
+				setMenu(data.menu);
 			});
+	}, []);
+	*/
+
+	// Fetch Menu using axios
+	useEffect(() => {
+		axios.get("http://localhost:5000/api/menu/")
+			.then(res => {
+				console.log("Fetch Data", res);
+				setMenu(res.data.menu);
+			})
+			.catch(err => console.log(err))
+	}, []);
+
+	/*
+	// Add Item
+	useEffect(() => {
+
+	}, []);
+
+	// Update Category
+	useEffect(() => {
+
+	}, []);
+
+	// Update Item
+	useEffect(() => {
+
+	}, []);
+
+	// Delete Category
+	useEffect((cid) => {
+		axios.delete("http://localhost:5000/")
+			.then(() => {
+				setMenu(menu.filter(menuCategory => menuCategory.id !== cid))
+			})
+	}, []);
+
+	// Delete Item
+	useEffect(() => {
+
 	}, []);
 	*/
 
