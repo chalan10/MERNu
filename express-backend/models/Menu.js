@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const MenuSchema = new Schema({
 	/*
 		{
-			id: 1,
+			_id: 2198r7jfalk,
 			name: "Appetizers",
 			description: "Appetizers Description",
 			edit: false,
@@ -21,10 +21,7 @@ const MenuSchema = new Schema({
 			]
 		}
 	*/	
-	id: {
-		type: Number,
-		required: true
-	},
+	//_id: mongoose.Schema.Types.ObjectId,
 	name: {
 		type: String,
 		required: true

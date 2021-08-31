@@ -31,7 +31,7 @@ function Menu() {
 		setShowAddCategory(false);
 		setMenu(
 			menu.map(menuCategory =>
-				menuCategory.id === cid ?
+				menuCategory._id === cid ?
 				{
 					...menuCategory,
 					items: menuCategory.items.map(menuItem =>
@@ -62,7 +62,7 @@ function Menu() {
 		setShowAddCategory(false);
 		setMenu(
 			menu.map(menuCategory =>
-				menuCategory.id === cid ?
+				menuCategory._id === cid ?
 				{
 					...menuCategory,
 					items: menuCategory.items.map(menuItem =>
@@ -94,11 +94,11 @@ function Menu() {
 		setShowAddCategory(false);
 		setMenu(
 			menu.map(menuCategory =>
-				menuCategory.id === cid ?
+				menuCategory._id === cid ?
 				{
 					...menuCategory,
 					items: menuCategory.items.map(menuItem =>
-						menuItem.id === iid ?
+						menuItem._id === iid ?
 						{ ...menuItem, edit: !menuItem.edit } :
 						{ ...menuItem, edit: false }
 					),
@@ -145,7 +145,15 @@ function Menu() {
 	}
 
 	function deleteCategory(cid) {
-		setMenu(menu.filter(menuCategory => menuCategory.id !== cid));
+		// TODO: how to make sure that when we delete, the component disappears only when
+		// we actually delete it from db, atm if we get an error, it'll still remove comp
+		setMenu(menu.filter(menuCategory => menuCategory._id !== cid));
+		axios.delete(`http://localhost:5000/api/menu/${cid}`)
+			.then(res => {
+				console.log("Delete Category", res);
+				console.log(res.data);
+			})
+			.catch(err => console.log("Delete Category Error", err))
 	}
 
 	function deleteItem(iid) {
@@ -153,7 +161,7 @@ function Menu() {
 			menu.map(menuCategory =>
 				({
 					...menuCategory,
-					items: menuCategory.items.filter(menuItem => menuItem.id !== iid)
+					items: menuCategory.items.filter(menuItem => menuItem._id !== iid)
 				})
 			)
 		);
@@ -177,14 +185,14 @@ function Menu() {
 			console.log(menu);
 			setShowAddCategory(false);
 			*/
-			const rid = Math.floor(Math.random() * 10000) + 1;
+			//const rid = Math.floor(Math.random() * 10000) + 1;
 			const newCategory = {
-				id: rid,
+				//id: rid,
 				name: data.name,
 				description: data.description,
-				items: [],
 				edit: false,
-				addItem: false
+				addItem: false,
+				items: []
 			};
 			axios.post("http://localhost:5000/api/menu/", newCategory)
 				.then(res => {
@@ -194,13 +202,14 @@ function Menu() {
 					console.log("Menu", menu);
 					setShowAddCategory(false);
 				})
-				.catch(err => console.log(err))
+				.catch(err => console.log("Add Category error", err))
 		}
 		// Edit Category
 		else {
+			//axios.put("http://localhost:5000/api/menu/")
 			setMenu(
 				menu.map((menuCategory) => 
-					menuCategory.id === data.cid ?
+					menuCategory._id === data.cid ?
 					{
 						...menuCategory,
 						name: data.name,
@@ -230,7 +239,7 @@ function Menu() {
 			};
 			setMenu(
 				menu.map(menuCategory =>
-					menuCategory.id === data.cid ?
+					menuCategory._id === data.cid ?
 					{
 						...menuCategory,
 						items: [ ...menuCategory.items, newItem ],
@@ -248,7 +257,7 @@ function Menu() {
 					({
 						...menuCategory,
 						items: menuCategory.items.map(menuItem =>
-							menuItem.id === data.iid ?
+							menuItem._id === data.iid ?
 							{ 
 								...menuItem,
 								name: data.name,
@@ -303,12 +312,12 @@ function Menu() {
 	}, []);
 	*/
 
-	// Fetch Menu using axios
+	// Fetch Menu
 	useEffect(() => {
 		axios.get("http://localhost:5000/api/menu/")
 			.then(res => {
 				console.log("Fetch Data", res);
-				setMenu(res.data.menu);
+				setMenu(res.data);
 			})
 			.catch(err => console.log(err))
 	}, []);

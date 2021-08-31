@@ -12,7 +12,7 @@ function ItemForm({ menu, setMenu, menuCategory, menuItem, toggleAddItem, toggle
 			<form
 				className="item-form"
 				onSubmit={(e) => handleItemSubmit(e, {
-					cid: menuCategory.id, name: name, description: description, price: price
+					cid: menuCategory._id, name: name, description: description, price: price
 				})}
 			>
 				<label>Item Name</label><br/>
@@ -36,7 +36,7 @@ function ItemForm({ menu, setMenu, menuCategory, menuItem, toggleAddItem, toggle
 					value={price}
 					onChange={(e) => setPrice(e.target.value)}
 				/><br/>
-				<button onClick={() => toggleAddItem(menuCategory.id)}>
+				<button onClick={() => toggleAddItem(menuCategory._id)}>
 					Cancel
 				</button>
 				<input
@@ -52,7 +52,7 @@ function ItemForm({ menu, setMenu, menuCategory, menuItem, toggleAddItem, toggle
 		return (
 			<form
 				className="item-form"
-				onSubmit={(e) => handleItemSubmit(e, { iid: menuItem.id, cid: menuItem.category, name: name, description: description, price: price })}
+				onSubmit={(e) => handleItemSubmit(e, { iid: menuItem._id, cid: menuItem.category, name: name, description: description, price: price })}
 			>
 				<label>Item Name</label><br/>
 				<input
@@ -75,11 +75,11 @@ function ItemForm({ menu, setMenu, menuCategory, menuItem, toggleAddItem, toggle
 					value={price}
 					onChange={(e) => setPrice(e.target.value)}
 				/><br/>
-				<button onClick={() => toggleEditItem(menuCategory.id, menuItem.id)}>
+				<button onClick={() => toggleEditItem(menuCategory._id, menuItem._id)}>
 					Cancel
 				</button>
 				<button
-					onClick={() => deleteItem(menuItem.id)}
+					onClick={() => deleteItem(menuItem._id)}
 					style={{ backgroundColor: "crimson" }}
 				>
 					Delete

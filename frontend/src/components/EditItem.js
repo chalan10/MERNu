@@ -4,7 +4,7 @@ import "./EditItem.css";
 function EditItem({ menu, setMenu, menuCategory, menuItem, toggleEditItem, deleteItem, handleItemSubmit }) {
 	return (
 		<div className="edit-item">
-			<button className="edit-item-btn" onClick={() => toggleEditItem(menuCategory.id, menuItem.id)}>
+			<button className="edit-item-btn" onClick={() => toggleEditItem(menuCategory._id, menuItem._id)}>
 				Edit Item Button
 			</button>
 			{menuItem.edit &&

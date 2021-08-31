@@ -43,7 +43,7 @@ function CategoryForm({ menu, setMenu, menuCategory, toggleAddCategory, toggleEd
 		return (
 			<form
 				className="category-form"
-				onSubmit={(e) => handleCategorySubmit(e, { cid: menuCategory.id, name: name, description: description })}
+				onSubmit={(e) => handleCategorySubmit(e, { cid: menuCategory._id, name: name, description: description })}
 			>
 				<label>Category Name</label><br/>
 				<input
@@ -60,11 +60,11 @@ function CategoryForm({ menu, setMenu, menuCategory, toggleAddCategory, toggleEd
 					value={description}
 					onChange={(e) => setDescription(e.target.value)}
 				/><br/>
-				<button onClick={() => toggleEditCategory(menuCategory.id)}>
+				<button onClick={() => toggleEditCategory(menuCategory._id)}>
 					Cancel
 				</button>
 				<button
-					onClick={() => deleteCategory(menuCategory.id)}
+					onClick={() => deleteCategory(menuCategory._id)}
 					style={{ backgroundColor: "crimson" }}
 				>
 					Delete

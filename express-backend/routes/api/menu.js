@@ -1,13 +1,13 @@
 const express = require("express");
 const router = express.Router();
 
-
 const Menu = require("../../models/Menu.js");
 
 // Get Menu
 // GET /api/menu/
 router.get("/", (req, res) => {
 	// TODO: moved data from frontend to backend, but we need to move it to a database
+	/*
 	const menu = [
 		{
 			id: 1,
@@ -88,14 +88,18 @@ router.get("/", (req, res) => {
 		}
 	];
 
-	res.send({"menu": menu});
+	res.send(menu);
+	*/
+
+	Menu.find()
+		.then(items => res.json(items));
 });
 
-// Post Menu
+// Add Category
 // POST /api/menu/
 router.post("/", (req, res) => {
 	const menu = new Menu({
-		id: req.body.id,
+		//_id: new mongoose.Types.ObjectId,
 		name: req.body.name,
 		description: req.body.description,
 		edit: req.body.edit,
@@ -105,9 +109,9 @@ router.post("/", (req, res) => {
 	console.log("Menu", menu);
 	menu.save().then(result => {
 		console.log("Result", result);
+		console.log(req.body);
+		res.json(result);
 	});
-	console.log(req.body);
-	res.send(req.body);
 });
 
 // Update Menu
@@ -116,12 +120,22 @@ router.put("/", (req, res) => {
 	res.send("PUT /api/menu/");
 });
 
-// Delete Menu
+// Delete Category
 // DELETE /api/menu/
-/*
-router.delete("/", (req, res) => {
-
+router.delete("/:cid", (req, res) => {
+	Menu.findById(req.params.cid)
+		.then(menu => menu.remove())
+		.catch(err => console.log("Delete Category Error", err))
+	//res.send("DELETE /api/menu/");
 });
+/*
+// Delete an item
+// DELETE /api/item/:id
+router.delete("/:id", (req, res) => {
+	Item.findById(req.params.id)
+		.then(item => item.remove().then(() => res.json({ success: true })))
+		.catch(err => res.status(404).json({ success: false }));
+})
 */
 
 module.exports = router;

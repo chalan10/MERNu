@@ -4,7 +4,7 @@ import "./EditCategory.css";
 function EditCategory({ menu, setMenu, menuCategory, toggleEditCategory, deleteCategory, handleCategorySubmit }) {
 	return (
 		<div className="edit-category">
-			<button className="edit-category-btn" onClick={() => toggleEditCategory(menuCategory.id)}>
+			<button className="edit-category-btn" onClick={() => toggleEditCategory(menuCategory._id)}>
 				Edit Category
 			</button>
 			{menuCategory.edit &&
