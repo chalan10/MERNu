@@ -185,9 +185,7 @@ function Menu() {
 			console.log(menu);
 			setShowAddCategory(false);
 			*/
-			//const rid = Math.floor(Math.random() * 10000) + 1;
 			const newCategory = {
-				//id: rid,
 				name: data.name,
 				description: data.description,
 				edit: false,
@@ -206,7 +204,7 @@ function Menu() {
 		}
 		// Edit Category
 		else {
-			//axios.put("http://localhost:5000/api/menu/")
+			/*
 			setMenu(
 				menu.map((menuCategory) => 
 					menuCategory._id === data.cid ?
@@ -220,6 +218,21 @@ function Menu() {
 					menuCategory
 				)
 			);
+			*/
+			const editedCategory = {
+				_id: data.cid,
+				name: data.name,
+				description: data.description,
+				edit: false,
+				addItem: false,
+				items: data.items
+			}
+			axios.put(`http://localhost:5000/api/menu/${data.cid}`, editedCategory)
+				.then(res => {
+					console.log("Edit Category", res);
+					console.log(res.data);
+				})
+				.catch(err => console.log("Edit Category Error", err))
 		}
 		//closeForms();
 	}
