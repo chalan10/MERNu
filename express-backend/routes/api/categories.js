@@ -1,33 +1,18 @@
 const express = require("express");
 const router = express.Router();
-
-// Category Model
 const Category = require("../../models/Category.js");
+const Menu = require("./menu.js");
+
+// TODO: trying to figure out how to move some of the routing from menu to category and item
 
 // Get all categories
-// GET /api/categories
+// GET /api/menu/categories/
 router.get("/", (req, res) => {
+	res.send("category")
+	/*
 	Category.find()
 		.then(categories => res.json(categories));
+	*/
 });
-
-// Create a category
-// POST /api/category
-router.post("/", (req, res) => {
-	const newCategory = new Category({
-		id: req.body.id,
-		name: req.body.name
-	});
-
-	newCategory.save().then(category => res.json(category));
-});
-
-// Delete a category
-// DELETE /api/category/:id
-router.delete("/:id", (req, res) => {
-	Category.findById(req.params.id)
-		.then(category => category.remove().then(() => res.json({ success: true })))
-		.catch(err => res.status(404).json({ success: false }));
-})
 
 module.exports = router;

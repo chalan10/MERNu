@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-
-// Item Model
 const Item = require("../../models/Item.js");
+
+// TODO: trying to figure out how to move some of the routing from menu to category and item
 
 // Get all items
 // GET /api/items

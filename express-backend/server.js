@@ -15,8 +15,8 @@ app.use(session({
 }));
 */
 
-const items = require("./routes/api/items.js");
-const categories = require("./routes/api/categories.js");
+//const items = require("./routes/api/items.js");
+//const categories = require("./routes/api/categories.js");
 const menu = require("./routes/api/menu.js");
 
 const app = express();
@@ -36,8 +36,8 @@ mongoose
 
 // Routes
 app.use("/", require("./routes/index.js"));
-app.use("/api/items", require("./routes/api/items.js"));
-app.use("/api/categories", require("./routes/api/categories.js"));
+//app.use("/api/items", require("./routes/api/items.js"));
+//app.use("/api/categories", require("./routes/api/categories.js"));
 app.use("/api/menu", require("./routes/api/menu.js"));
 
 const PORT = process.env.PORT || 5000;

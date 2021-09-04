@@ -4,7 +4,7 @@ import "./AddItem.css";
 function AddItem({ menu, setMenu, menuCategory, toggleAddItem, handleItemSubmit }) {
 	return (
 		<div className="add-item">
-			<button className="add-item-btn" onClick={() => toggleAddItem(menuCategory.id)}>
+			<button className="add-item-btn" onClick={() => toggleAddItem(menuCategory._id)}>
 				<h2>Add Item</h2>
 			</button>
 			{menuCategory.addItem &&
