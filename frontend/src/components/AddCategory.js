@@ -1,5 +1,5 @@
-import CategoryForm from "./CategoryForm.js";
-import "./AddCategory.css";
+import CategoryForm from "./CategoryForm.js"
+import "./AddCategory.css"
 
 function AddCategory({ menu, setMenu, showAddCategory, toggleAddCategory, handleCategorySubmit }) {
 	return (
@@ -16,7 +16,7 @@ function AddCategory({ menu, setMenu, showAddCategory, toggleAddCategory, handle
 				/>
 			}
 		</div>
-	);
+	)
 }
 
-export default AddCategory;
+export default AddCategory

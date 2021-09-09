@@ -1,5 +1,5 @@
-import EditItem from "./EditItem.js";
-import "./Item.css";
+import EditItem from "./EditItem.js"
+import "./Item.css"
 
 function Item({ menu, setMenu, menuCategory, menuItem, toggleEditItem, deleteItem, handleItemSubmit }) {
 	return (
@@ -17,7 +17,7 @@ function Item({ menu, setMenu, menuCategory, menuItem, toggleEditItem, deleteIte
 				handleItemSubmit={handleItemSubmit}
 			/>
 		</div>
-	);
+	)
 }
 
-export default Item;
+export default Item

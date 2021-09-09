@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState } from "react"
 import "./CategoryForm.css"
 
 function CategoryForm({ menu, setMenu, menuCategory, toggleAddCategory, toggleEditCategory, deleteCategory, handleCategorySubmit }) {
-	const [ name, setName ] = useState(menuCategory && menuCategory.name);
-	const [ description, setDescription ] = useState(menuCategory && menuCategory.description);
+	const [ name, setName ] = useState(menuCategory ? menuCategory.name : "")
+	const [ description, setDescription ] = useState(menuCategory ? menuCategory.description : "")
 
 	// Add Category
 	if (!menuCategory) {
@@ -36,7 +36,7 @@ function CategoryForm({ menu, setMenu, menuCategory, toggleAddCategory, toggleEd
 					style={{ backgroundColor: "skyblue" }}
 				/>
 			</form>
-		);
+		)
 	}
 	// Edit Category
 	if (menuCategory) {
@@ -75,8 +75,8 @@ function CategoryForm({ menu, setMenu, menuCategory, toggleAddCategory, toggleEd
 					style={{ backgroundColor: "skyblue" }}
 				/>
 			</form>
-		);
+		)
 	}
 }
 
-export default CategoryForm;
+export default CategoryForm

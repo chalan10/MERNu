@@ -1,7 +1,7 @@
-import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import Cart from "./Cart.js";
-import "./Customer.css";
+import React from "react"
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom"
+import Cart from "./Cart.js"
+import "./Customer.css"
 
 function Customer() {
 	return (
@@ -16,7 +16,7 @@ function Customer() {
 				</Switch>
 			</Router>
 		</div>
-	);
+	)
 }
 
-export default Customer;
+export default Customer

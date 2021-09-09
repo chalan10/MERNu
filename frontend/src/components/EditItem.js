@@ -1,5 +1,5 @@
-import ItemForm from "./ItemForm.js";
-import "./EditItem.css";
+import ItemForm from "./ItemForm.js"
+import "./EditItem.css"
 
 function EditItem({ menu, setMenu, menuCategory, menuItem, toggleEditItem, deleteItem, handleItemSubmit }) {
 	return (
@@ -19,7 +19,7 @@ function EditItem({ menu, setMenu, menuCategory, menuItem, toggleEditItem, delet
 				/>
 			}
 		</div>
-	);
+	)
 }
 
-export default EditItem;
+export default EditItem

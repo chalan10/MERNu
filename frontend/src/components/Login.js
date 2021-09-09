@@ -1,19 +1,19 @@
-import React from "react";
-import { /*BrowserRouter as Router, Switch, Route,*/ Link } from "react-router-dom";
-//import Customer from "./Customer.js";
-//import Restaurant from "./Restaurant.js";
-//import Create from "./Create.js";
-import "./Login.css";
+import React from "react"
+import { /*BrowserRouter as Router, Switch, Route,*/ Link } from "react-router-dom"
+//import Customer from "./Customer.js"
+//import Restaurant from "./Restaurant.js"
+//import Create from "./Create.js"
+import "./Login.css"
 
 function Login() {
 	// TODO: keep state here or in App.js?
 	/*
 	constructor(props) {
-		super(props);
+		super(props)
 		this.state = {
 			username: "",
 			password: "",
-		};
+		}
 	}
 	*/
 
@@ -22,9 +22,9 @@ function Login() {
 		var data = {
 			"username": this.state.username,
 			"password": this.state.password
-		};
+		}
 		fetch("/login/")
-		);
+		)
 	}
 	*/
 
@@ -60,7 +60,7 @@ function Login() {
 	   			<Link to="/create/">Create Account</Link>
 	   		</div>
 	   	</div>
-	);
+	)
 }
 
-export default Login;
+export default Login

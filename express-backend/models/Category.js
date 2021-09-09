@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
-//const Item = require("./Item.js");
+const mongoose = require("mongoose")
+const Schema = mongoose.Schema
+//const Item = require("./Item.js")
 
 const ItemSchema = new Schema({
 	cid: mongoose.Schema.Types.ObjectId,
@@ -8,7 +8,7 @@ const ItemSchema = new Schema({
 	description: String,
 	price: Number,
 	edit: Boolean
-});
+})
 
 const CategorySchema = new Schema({
 	name: String,
@@ -16,6 +16,6 @@ const CategorySchema = new Schema({
 	edit: Boolean,
 	addItem: Boolean,
 	items: [ItemSchema]
-});
+})
 
-module.exports = mongoose.model("Category", CategorySchema);
+module.exports = mongoose.model("Category", CategorySchema)

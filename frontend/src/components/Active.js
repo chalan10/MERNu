@@ -1,5 +1,5 @@
-import React from "react";
-import "./Active.css";
+import React from "react"
+import "./Active.css"
 
 class Active extends React.Component {
 	render() {
@@ -11,4 +11,4 @@ class Active extends React.Component {
 	}
 }
 
-export default Active;
+export default Active

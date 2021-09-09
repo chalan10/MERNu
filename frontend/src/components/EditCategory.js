@@ -1,5 +1,5 @@
-import CategoryForm from "./CategoryForm.js";
-import "./EditCategory.css";
+import CategoryForm from "./CategoryForm.js"
+import "./EditCategory.css"
 
 function EditCategory({ menu, setMenu, menuCategory, toggleEditCategory, deleteCategory, handleCategorySubmit }) {
 	return (
@@ -18,7 +18,7 @@ function EditCategory({ menu, setMenu, menuCategory, toggleEditCategory, deleteC
 				/>
 			}
 		</div>
-	);
+	)
 }
 
-export default EditCategory;
+export default EditCategory

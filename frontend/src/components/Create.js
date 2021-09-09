@@ -1,6 +1,6 @@
-import React from "react";
-import { /*BrowserRouter as Router, Route,*/ Link } from "react-router-dom";
-import "./Create.css";
+import React from "react"
+import { /*BrowserRouter as Router, Route,*/ Link } from "react-router-dom"
+import "./Create.css"
 
 class Create extends React.Component {
 	render() {
@@ -27,8 +27,8 @@ class Create extends React.Component {
 					<Link to="/">Return to Login</Link>
 				</div>
 			</div>
-		);
+		)
 	}
 }
 
-export default Create;
+export default Create

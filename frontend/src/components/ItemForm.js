@@ -1,10 +1,10 @@
-import { useState } from "react";
-import "./ItemForm.css";
+import { useState } from "react"
+import "./ItemForm.css"
 
 function ItemForm({ menu, setMenu, menuCategory, menuItem, toggleAddItem, toggleEditItem, deleteItem, handleItemSubmit }) {
-	const [ name, setName ] = useState(menuItem && menuItem.name);
-	const [ description, setDescription ] = useState(menuItem && menuItem.description);
-	const [ price, setPrice ] = useState(menuItem && menuItem.price);
+	const [ name, setName ] = useState(menuItem ? menuItem.name : "")
+	const [ description, setDescription ] = useState(menuItem ? menuItem.description : "")
+	const [ price, setPrice ] = useState(menuItem ? menuItem.price : 0)
 
 	// Add Item
 	if (!menuItem) {
@@ -45,7 +45,7 @@ function ItemForm({ menu, setMenu, menuCategory, menuItem, toggleAddItem, toggle
 					style={{ backgroundColor: "skyblue" }}
 				/>
 			</form>
-		);
+		)
 	}
 	// Edit Item
 	if (menuItem) {
@@ -90,8 +90,8 @@ function ItemForm({ menu, setMenu, menuCategory, menuItem, toggleAddItem, toggle
 					style={{ backgroundColor: "skyblue" }}
 				/>
 			</form>
-		);
+		)
 	}
 }
 
-export default ItemForm;
+export default ItemForm

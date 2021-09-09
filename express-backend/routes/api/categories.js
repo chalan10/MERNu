@@ -1,7 +1,7 @@
-const express = require("express");
-const router = express.Router();
-const Category = require("../../models/Category.js");
-const Menu = require("./menu.js");
+const express = require("express")
+const router = express.Router()
+const Category = require("../../models/Category.js")
+const Menu = require("./menu.js")
 
 // TODO: trying to figure out how to move some of the routing from menu to category and item
 
@@ -11,8 +11,8 @@ router.get("/", (req, res) => {
 	res.send("category")
 	/*
 	Category.find()
-		.then(categories => res.json(categories));
+		.then(categories => res.json(categories))
 	*/
-});
+})
 
-module.exports = router;
+module.exports = router

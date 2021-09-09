@@ -1,7 +1,7 @@
-import Item from "./Item.js";
-import AddItem from "./AddItem.js";
-import EditCategory from "./EditCategory.js";
-import "./Category.css";
+import Item from "./Item.js"
+import AddItem from "./AddItem.js"
+import EditCategory from "./EditCategory.js"
+import "./Category.css"
 
 function Category({ menu, setMenu, menuCategory, toggleEditCategory, deleteCategory, handleCategorySubmit,
 					toggleAddItem, toggleEditItem, deleteItem, handleItemSubmit}) {
@@ -20,9 +20,10 @@ function Category({ menu, setMenu, menuCategory, toggleEditCategory, deleteCateg
 					handleCategorySubmit={handleCategorySubmit}
 				/>
 			</div>
-			{menuCategory.items.map((menuItem) => {
+			{menuCategory.items.map(menuItem => {
 				return (
 					<Item
+						key={menuItem._id}
 						menu={menu}
 						setMenu={setMenu}
 						menuCategory={menuCategory}
@@ -31,7 +32,7 @@ function Category({ menu, setMenu, menuCategory, toggleEditCategory, deleteCateg
 						deleteItem={deleteItem}
 						handleItemSubmit={handleItemSubmit}
 					/>
-				);
+				)
 			})}
 			<AddItem
 				menu={menu}
@@ -41,7 +42,7 @@ function Category({ menu, setMenu, menuCategory, toggleEditCategory, deleteCateg
 				handleItemSubmit={handleItemSubmit}
 			/>
 		</div>
-	);
+	)
 }
 
-export default Category;
+export default Category

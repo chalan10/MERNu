@@ -1,11 +1,10 @@
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import NavBar from "./NavBar.js";
-import Menu from "./Menu.js";
-import Active from "./Active.js";
-import History from "./History.js";
-import "./Restaurant.css";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom"
+import Menu from "./Menu.js"
+import Active from "./Active.js"
+import History from "./History.js"
+import "./Restaurant.css"
 
-function Restaurant({ showNavBar, onToggle }) {
+function Restaurant() {
 	// TODO: Avoid hardcoding restaurant path in link
 	const routes = [
 		{
@@ -34,44 +33,38 @@ function Restaurant({ showNavBar, onToggle }) {
 			exact: true,
 			title: "Logout"
 		}
-	];
+	]
 
 	return(
 		<div className="restaurant">
 			<Router>
 				<ul className="sidebar">
 					<h2>Restaurant Name</h2>
-					<NavBar 
-						color={showNavBar ? "red" : "green"}
-						onToggle={onToggle}
-					/><br/>
 					<div>
-						{routes.map((item, index) => {
-							return (
-								<li className="sidebar-item">
-									<Link to={item.path}>
-										{item.title}
-									</Link>
-								</li>
-							);
-						})}
+						{routes.map(route => (
+							<li className="sidebar-item" key={route.path}>
+								<Link to={route.path}>
+									{route.title}
+								</Link>
+							</li>
+						))}
 					</div>
 				</ul>
 				<div className="main">
 					<Switch>
-						{routes.map((route, index) => (
+						{routes.map(route => (
 							<Route
-								key={index}
+								key={route.path}
 								path={route.path}
 								exact={route.exact}
-								children={<route.main />}
+								children={route.main}
 							/>
 						))}
 					</Switch>
 				</div>
 			</Router>
 		</div>
-	);
+	)
 }
 
-export default Restaurant;
+export default Restaurant

@@ -1,5 +1,5 @@
-import React from "react";
-import "./History.css";
+import React from "react"
+import "./History.css"
 
 class History extends React.Component {
 	render() {
@@ -7,8 +7,8 @@ class History extends React.Component {
 			<div>
 				<h2>Order History</h2>
 			</div>
-		);
+		)
 	}
 }
 
-export default History;
+export default History
