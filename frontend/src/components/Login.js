@@ -1,64 +1,59 @@
-import React from "react"
-import { /*BrowserRouter as Router, Switch, Route,*/ Link } from "react-router-dom"
-//import Customer from "./Customer.js"
-//import Restaurant from "./Restaurant.js"
-//import Create from "./Create.js"
+import { useState, useEffect } from "react"
+import { Link, useHistory } from "react-router-dom"
+import axios from "axios"
+import LoginForm from "./LoginForm.js"
 import "./Login.css"
 
 function Login() {
-	// TODO: keep state here or in App.js?
+	const history = useHistory()
+	const [ type, setType ] = useState()
 	/*
-	constructor(props) {
-		super(props)
-		this.state = {
-			username: "",
-			password: "",
-		}
-	}
+	const [ username, setUsername ] = useState()
+	const [ password, setPassword ] = useState()
 	*/
 
-	/*
-	sendLogin() => {
-		var data = {
-			"username": this.state.username,
-			"password": this.state.password
+	function handleLogin(e, data) {
+		e.preventDefault()
+		const loginInfo = {
+			username: data.username,
+			password: data.password,
+			type: type
 		}
-		fetch("/login/")
-		)
+		axios.post("http://localhost:5000/login", loginInfo)
+			.then(res => {
+				if (res.data === "success") {
+					history.push(`/${type}`)
+				}
+				else {
+					alert("failure")
+				}
+			})
+			.catch(err => console.log("Login Error", err))
 	}
-	*/
 
-	// TODO: have a redirect to create acc
-	//<p>Hello, {this.state.username}!</p>
-	return (
+	return(
 		<div className="login">
-			<div className="customer-login">
-	   			<h2>
-	   				C Login
-	   			</h2>
-	   			<form>
-	   				<label for="username">Username: </label><br/>
-	   				<input type="text" id="username" name="username" required/><br/>
-	   				<label for="password">Password: </label><br/>
-	   				<input type="password" id="password" name="password" required/><br/>
-	   				<input type="submit" value="Log In"/>
-	   			</form>
-	   		</div>
-	   		<div className="restaurant-login">
-	   			<h2>
-	   				R Login
-	   			</h2>
-	   			<form>
-	   				<label for="username">Username: </label><br/>
-	   				<input type="text" id="username" name="username" required/><br/>
-	   				<label for="password">Password: </label><br/>
-	   				<input type="password" id="password" name="password" required/><br/>
-	   				<input type="submit" value="Log In"/>
-	   			</form>
-	   		</div>
-	   		<div className="create-acc">
-	   			<Link to="/create/">Create Account</Link>
-	   		</div>
+			<div className="login-type">
+				<h2>Account Type: {type}</h2>
+				<button onClick={() => setType("customer")}>Customer</button>
+				<button onClick={() => setType("restaurant")}>Restaurant</button>
+			</div>
+			
+			{type === "customer" &&
+				<div className="customer-login">
+	   				<h2>Customer Login</h2>
+					<LoginForm handleLogin={handleLogin} />
+	   			</div>
+			}
+
+			{type === "restaurant" &&
+	   			<div className="restaurant-login">
+	   				<h2>Restaurant Login</h2>
+					<LoginForm handleLogin={handleLogin} />
+	   			</div>
+			}
+
+	   		<Link to="/create">Create Account</Link>
 	   	</div>
 	)
 }
