@@ -2,8 +2,10 @@ const express = require("express")
 const mongoose = require("mongoose")
 const router = express.Router()
 const Menu = require("../../models/Menu.js")
+const Restaurant = require("../../models/Restaurant.js")
 
 // TODO: /api/menu/:mid for when we have multiple menus
+// TODO: replace Menu with Category for readability
 
 // Get Menu
 // GET /api/menu/

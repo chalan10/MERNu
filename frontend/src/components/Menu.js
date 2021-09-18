@@ -13,7 +13,7 @@ function Menu() {
 
 	// Fetch Menu
 	function fetchMenu() {
-		axios.get("http://localhost:5000/api/menu/")
+		axios.get("http://localhost:5000/api/restaurant/")
 			.then(res => setMenu(res.data))
 			.catch(err => console.log("Fetch Menu Error", err))
 	}
@@ -131,13 +131,13 @@ function Menu() {
 	}
 
 	function deleteCategory(cid) {
-		axios.delete(`http://localhost:5000/api/menu/category/${cid}`)
+		axios.delete(`http://localhost:5000/api/restaurant/category/${cid}`)
 			.catch(err => console.log("Delete Category Error", err))
 		setMenu(menu.filter(menuCategory => menuCategory._id !== cid))
 	}
 
 	function deleteItem(cid, iid) {
-		axios.delete(`http://localhost:5000/api/menu/category/${cid}/item/${iid}`)
+		axios.delete(`http://localhost:5000/api/restaurant/category/${cid}/item/${iid}`)
 			.catch(err => console.log("Delete Item Error", err))
 		setMenu(
 			menu.map(menuCategory =>
@@ -162,7 +162,7 @@ function Menu() {
 				addItem: false,
 				items: []
 			}
-			axios.post("http://localhost:5000/api/menu/category", newCategory)
+			axios.post("http://localhost:5000/api/restaurant/category", newCategory)
 				.then(res => {
 					setMenu([ ...menu, res.data ])
 					setShowAddCategory(false)
@@ -179,7 +179,7 @@ function Menu() {
 				addItem: false,
 				items: data.items
 			}
-			axios.put(`http://localhost:5000/api/menu/category/${data.cid}`, editedCategory)
+			axios.put(`http://localhost:5000/api/restaurant/category/${data.cid}`, editedCategory)
 				.then(res => {
 					setMenu(
 						menu.map(menuCategory => 
@@ -210,7 +210,7 @@ function Menu() {
 				price: parseFloat(data.price),
 				edit: false
 			}
-			axios.post(`http://localhost:5000/api/menu/category/${data.cid}/item/`, newItem)
+			axios.post(`http://localhost:5000/api/restaurant/category/${data.cid}/item/`, newItem)
 				.then(res => {
 					setMenu(
 						menu.map(menuCategory =>
@@ -237,7 +237,7 @@ function Menu() {
 				price: data.price,
 				edit: false
 			}
-			axios.put(`http://localhost:5000/api/menu/category/${data.cid}/item/${data.iid}`, editedItem)
+			axios.put(`http://localhost:5000/api/restaurant/category/${data.cid}/item/${data.iid}`, editedItem)
 				.then(() => {
 					setMenu(
 						menu.map(menuCategory =>
