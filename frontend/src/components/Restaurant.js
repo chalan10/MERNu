@@ -1,13 +1,13 @@
-import { useState, useEffect } from "react"
-import { BrowserRouter as Router, Switch, Route, Link, useHistory } from "react-router-dom"
-import axios from "axios"
+//import { useState, useEffect } from "react"
+import { BrowserRouter as Router, Switch, Route, Link, useHistory, Redirect } from "react-router-dom"
+//import axios from "axios"
 import Account from "./Account.js"
 import Menu from "./Menu.js"
 import Active from "./Active.js"
 import History from "./History.js"
 import "./Restaurant.css"
 
-function Restaurant() {
+function Restaurant({ username, setUsername, password, setPassword, accountType, setAccountType }) {
 	// TODO: should we store state here or in each comp?
 	// we would have to fetch each time we navigate between the pages
 	// in case there was a change
@@ -19,9 +19,17 @@ function Restaurant() {
 	// same with active orders and order history, none of the comp care about
 	// the info the other ones have and having one parent state would be outdated
 	// and we'd have to update it everytime
-	
+
 	const history = useHistory()
 
+	// Redirect if not logged in or not a restaurant account
+	// TODO: might need to check for actual authenticity
+	// aka is this an actual valid login
+	if (accountType !== "restaurant") {
+		return <Redirect to="/" />
+	}
+
+	// TODO: is it correct to pass props like this?
 	// Route implemented this way so that we can use it for both sidebar and main
 	const routes = [
 		{
@@ -32,7 +40,7 @@ function Restaurant() {
 		},
 		{
 			path: "/restaurant/menu",
-			main: () => <Menu />,
+			main: () => <Menu username={username} />,
 			title: "Menu"
 		},
 		{
@@ -46,7 +54,8 @@ function Restaurant() {
 			title: "Order History"
 		},
 		{
-			path: "/login",
+			path: "/",
+			exact: true,
 			title: "Logout"
 		}
 	]
@@ -66,10 +75,10 @@ function Restaurant() {
 				<div className="sidebar">
 					<h2>Restaurant Name</h2>
 					{routes.map(route => {
-						if (route.path === "/login") {
+						if (route.path === "/") {
 							return(
 								<div className="sidebar-item" key={route.path}>
-									<Link to={route.path} onClick={() => history.push("/login")}>
+									<Link to={route.path} onClick={() => history.push("/")}>
 										{route.title}
 									</Link>
 								</div>

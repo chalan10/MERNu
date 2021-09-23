@@ -4,17 +4,19 @@ import Category from "./Category.js"
 import AddCategory from "./AddCategory.js"
 import "./Menu.css"
 
-function Menu() {
+function Menu({ username }) {
 	const [ menu, setMenu ] = useState([])
 
 	useEffect(() => {
-		fetchMenu()
-	}, [])
+		fetchMenu(username)
+	}, [username])
 
 	// Fetch Menu
-	function fetchMenu() {
-		axios.get("http://localhost:5000/api/restaurant/")
-			.then(res => setMenu(res.data))
+	function fetchMenu(username) {
+		axios.get(`http://localhost:5000/api/restaurant/${username}`)
+			.then(res => {
+				setMenu(res.data)
+			})
 			.catch(err => console.log("Fetch Menu Error", err))
 	}
 
@@ -131,13 +133,13 @@ function Menu() {
 	}
 
 	function deleteCategory(cid) {
-		axios.delete(`http://localhost:5000/api/restaurant/category/${cid}`)
+		axios.delete(`http://localhost:5000/api/restaurant/${username}/category/${cid}`)
 			.catch(err => console.log("Delete Category Error", err))
 		setMenu(menu.filter(menuCategory => menuCategory._id !== cid))
 	}
 
 	function deleteItem(cid, iid) {
-		axios.delete(`http://localhost:5000/api/restaurant/category/${cid}/item/${iid}`)
+		axios.delete(`http://localhost:5000/api/restaurant/${username}/category/${cid}/item/${iid}`)
 			.catch(err => console.log("Delete Item Error", err))
 		setMenu(
 			menu.map(menuCategory =>
@@ -156,13 +158,14 @@ function Menu() {
 		// Add Category
 		if (!data.cid) {
 			const newCategory = {
+				_id: username,
 				name: data.name,
 				description: data.description,
 				edit: false,
 				addItem: false,
 				items: []
 			}
-			axios.post("http://localhost:5000/api/restaurant/category", newCategory)
+			axios.post(`http://localhost:5000/api/restaurant/${username}/category`, newCategory)
 				.then(res => {
 					setMenu([ ...menu, res.data ])
 					setShowAddCategory(false)
@@ -172,22 +175,28 @@ function Menu() {
 		// Edit Category
 		else {
 			const editedCategory = {
-				_id: data.cid,
+				//_id: data.cid,
 				name: data.name,
-				description: data.description,
+				description: data.description
+				/*
 				edit: false,
 				addItem: false,
 				items: data.items
+				*/
 			}
-			axios.put(`http://localhost:5000/api/restaurant/category/${data.cid}`, editedCategory)
+			axios.put(`http://localhost:5000/api/restaurant/${username}/category/${data.cid}`, editedCategory)
 				.then(res => {
 					setMenu(
 						menu.map(menuCategory => 
 							menuCategory._id === data.cid ?
 							{
 								...menuCategory,
-								name: data.name,
-								description: data.description,
+								/*
+								name: res.data.name,
+								description: res.data.description,
+								*/
+								name: res.data.name,
+								description: res.data.description,
 								edit: false,
 								addItem: false
 							} :
@@ -210,8 +219,9 @@ function Menu() {
 				price: parseFloat(data.price),
 				edit: false
 			}
-			axios.post(`http://localhost:5000/api/restaurant/category/${data.cid}/item/`, newItem)
+			axios.post(`http://localhost:5000/api/restaurant/${username}/category/${data.cid}/item/`, newItem)
 				.then(res => {
+					console.log(res)
 					setMenu(
 						menu.map(menuCategory =>
 							menuCategory._id === data.cid ?
@@ -230,33 +240,43 @@ function Menu() {
 		// Edit Item
 		else {
 			const editedItem = {
+				/*
 				_id: data.iid,
 				cid: data.cid,
+				*/
 				name: data.name,
 				description: data.description,
 				price: data.price,
-				edit: false
+				//edit: false
 			}
-			axios.put(`http://localhost:5000/api/restaurant/category/${data.cid}/item/${data.iid}`, editedItem)
-				.then(() => {
+			axios.put(`http://localhost:5000/api/restaurant/${username}/category/${data.cid}/item/${data.iid}`, editedItem)
+				.then(res => {
 					setMenu(
 						menu.map(menuCategory =>
-							({
+							menuCategory._id === res.data.cid ?
+							{
 								...menuCategory,
 								items: menuCategory.items.map(menuItem =>
-									menuItem._id === data.iid ?
+									//menuItem._id === data.iid ?
+									menuItem._id === res.data._id ?
 									{ 
 										...menuItem,
+										/*
 										name: data.name,
 										description: data.description,
 										price: data.price,
+										*/
+										name: res.data.name,
+										description: res.data.description,
+										price: res.data.price,
 										edit: false
 									} :
 									menuItem
 								),
 								edit: false,
 								addItem: false
-							})
+							} :
+							menuCategory
 						)
 					)
 				})

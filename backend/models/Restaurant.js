@@ -7,15 +7,12 @@ const ItemSchema = new Schema({
 	name: String,
 	description: String,
 	price: Number,
-	edit: Boolean
 })
 
 const CategorySchema = new Schema({
 	_id: mongoose.Schema.Types.ObjectId,
 	name: String,
 	description: String,
-	edit: Boolean,
-	addItem: Boolean,
 	items: [ItemSchema]
 })
 
@@ -23,19 +20,9 @@ const RestaurantSchema = new Schema({
 	_id: String,
 	//_id: mongoose.Schema.Types.ObjectId,
 	//username: String,
-	password: {
-		type: String,
-		default: ""
-	},
-	name: {
-		type: String,
-		default: ""
-	},
-	description: {
-		type: String,
-		default: ""
-	},
-	//edit: Boolean,
+	password: String,
+	name: String,
+	description: String,
 	menu: [CategorySchema]
 	//active
 	//history
