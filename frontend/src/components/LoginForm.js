@@ -7,7 +7,7 @@ function LoginForm({ handleLogin }) {
 
 	return(
 	   	<form onSubmit={e => handleLogin(e, { username: username, password: password })}>
-	   		<label for="username">Username: </label><br/>
+	   		<label>Username: </label><br/>
 	   		<input
 				type="text"
 				name="username"
@@ -15,7 +15,7 @@ function LoginForm({ handleLogin }) {
 				value={username}
 				onChange={e => setUsername(e.target.value)}
 			/><br/>
-	   		<label for="password">Password: </label><br/>
+	   		<label>Password: </label><br/>
 	   		<input
 				type="password"
 				name="password"

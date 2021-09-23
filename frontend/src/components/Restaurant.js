@@ -35,7 +35,7 @@ function Restaurant({ username, setUsername, password, setPassword, accountType,
 		{
 			path: "/restaurant",
 			exact: true,
-			main: () => <Account />,
+			main: () => <Account username={username} />,
 			title: "Account"
 		},
 		{

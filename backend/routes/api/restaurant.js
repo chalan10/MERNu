@@ -18,12 +18,26 @@ const Restaurant = require("../../models/Restaurant.js")
 // and only use req.body to pull info? this way we would need to have client send all info
 // like the id of what we're adding/editing/removing
 
-// Get Menu
+// Get Account Info
 // GET /api/restaurant/:rid
 router.get("/:rid", (req, res) => {
 	Restaurant.findById(req.params.rid)
-		.then(restaurant => res.send(restaurant.menu))
-		.catch(err => console.log("Get Menu DB Error: Find Restaurant Error", err))
+		.then(restaurant => res.send(restaurant))
+		.catch(err => console.log("Get Account DB Error: Find Restaurant Error", err))
+})
+
+// Edit Account Info
+// PUT /api/restaurant/:rid
+router.put("/:rid", (req, res) => {
+	Restaurant.findById(req.params.rid)
+		.then(restaurant => {
+			restaurant.name = req.body.name
+			restaurant.description = req.body.description
+			restaurant.save()
+				.then(res.send(restaurant))
+				.catch(err => console.log("Edit Account DB Error: Save Error", err))
+		})
+		.catch(err => console.log("Edit Account DB Error: Find Restaurant Error", err))
 })
 
 // Add Category
@@ -41,21 +55,6 @@ router.post("/:rid/category", (req, res) => {
 		.catch(err => console.log("Add Category DB Error: Find Restaurant Error", err))
 })
 
-// Add Item
-// POST /api/restaurant/:rid/category/:cid/item
-router.post("/:rid/category/:cid/item", (req, res) => {
-	Restaurant.findById(req.params.rid)
-		.then(restaurant => {
-			const newItem = req.body
-			newItem._id = new mongoose.Types.ObjectId()
-			restaurant.menu.id(req.params.cid).items.push(newItem)
-			restaurant.save()
-				.then(res.send(newItem))
-				.catch(err => console.log("Add Item DB Error: Save Error", err))
-		})
-		.catch(err => console.log("Add Item DB Error: Find Restaurant Error", err))
-})
-
 // Edit Category
 // PUT /api/restaurant/:rid/category/:cid
 router.put("/:rid/category/:cid", (req, res) => {
@@ -69,6 +68,33 @@ router.put("/:rid/category/:cid", (req, res) => {
 				.catch(err => console.log("Edit Category DB Error: Save Error", err))
 		})
 		.catch(err => console.log("Edit Category DB Error: Find Restaurant Error", err))
+})
+
+// Delete Category
+// DELETE /api/restaurant/:rid/category/:cid
+router.delete("/:rid/category/:cid", (req, res) => {
+	Restaurant.findById(req.params.rid)
+		.then(restaurant => {
+			restaurant.menu.id(req.params.cid).remove()
+			restaurant.save()
+				.catch(err => console.log("Delete Category DB Error: Save Error", err))
+		})
+		.catch(err => console.log("Delete Category DB Error: Find Restaurant Error", err))
+})
+
+// Add Item
+// POST /api/restaurant/:rid/category/:cid/item
+router.post("/:rid/category/:cid/item", (req, res) => {
+	Restaurant.findById(req.params.rid)
+		.then(restaurant => {
+			const newItem = req.body
+			newItem._id = new mongoose.Types.ObjectId()
+			restaurant.menu.id(req.params.cid).items.push(newItem)
+			restaurant.save()
+				.then(res.send(newItem))
+				.catch(err => console.log("Add Item DB Error: Save Error", err))
+		})
+		.catch(err => console.log("Add Item DB Error: Find Restaurant Error", err))
 })
 
 // Edit Item
@@ -86,18 +112,6 @@ router.put("/:rid/category/:cid/item/:iid", (req, res) => {
 				.catch(err => console.log("Edit Item DB Error: Save Error", err))
 		})
 		.catch(err => console.log("Edit Item DB Error: Find Restaurant Error", err))
-})
-
-// Delete Category
-// DELETE /api/restaurant/:rid/category/:cid
-router.delete("/:rid/category/:cid", (req, res) => {
-	Restaurant.findById(req.params.rid)
-		.then(restaurant => {
-			restaurant.menu.id(req.params.cid).remove()
-			restaurant.save()
-				.catch(err => console.log("Delete Category DB Error: Save Error", err))
-		})
-		.catch(err => console.log("Delete Category DB Error: Find Restaurant Error", err))
 })
 
 // Delete Item

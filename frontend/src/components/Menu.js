@@ -8,17 +8,10 @@ function Menu({ username }) {
 	const [ menu, setMenu ] = useState([])
 
 	useEffect(() => {
-		fetchMenu(username)
-	}, [username])
-
-	// Fetch Menu
-	function fetchMenu(username) {
 		axios.get(`http://localhost:5000/api/restaurant/${username}`)
-			.then(res => {
-				setMenu(res.data)
-			})
+			.then(res => setMenu(res.data.menu))
 			.catch(err => console.log("Fetch Menu Error", err))
-	}
+	}, [username])
 
 	const [ showAddCategory, setShowAddCategory ] = useState(false)
 	function toggleAddCategory() {
