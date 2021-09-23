@@ -1,9 +1,13 @@
 import React from "react"
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom"
+import { BrowserRouter as Router, Switch, Route, Link, useHistory, Redirect } from "react-router-dom"
 import Cart from "./Cart.js"
 import "./Customer.css"
 
-function Customer() {
+function Customer({ username, setUsername, password, setPassword, accountType, setAccountType }) {
+	if (accountType !== "customer") {
+		return <Redirect to="/" />
+	}
+
 	return (
 		<div>
 			<h2>Customer Page</h2>

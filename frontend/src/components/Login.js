@@ -1,16 +1,12 @@
-import { useState, useEffect } from "react"
+import { useState/*, useEffect*/ } from "react"
 import { Link, useHistory } from "react-router-dom"
 import axios from "axios"
 import LoginForm from "./LoginForm.js"
 import "./Login.css"
 
-function Login() {
+function Login({ username, setUsername, password, setPassword, accountType, setAccountType }) {
 	const history = useHistory()
 	const [ type, setType ] = useState()
-	/*
-	const [ username, setUsername ] = useState()
-	const [ password, setPassword ] = useState()
-	*/
 
 	function handleLogin(e, data) {
 		e.preventDefault()
@@ -22,6 +18,9 @@ function Login() {
 		axios.post("http://localhost:5000/login", loginInfo)
 			.then(res => {
 				if (res.data === "success") {
+					setUsername(data.username)
+					setPassword(data.password)
+					setAccountType(type)
 					history.push(`/${type}`)
 				}
 				else {
