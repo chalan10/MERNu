@@ -4,14 +4,7 @@ const router = express.Router()
 const Customer = require("../models/Customer.js")
 const Restaurant = require("../models/Restaurant.js")
 
-// Login/Landing Page
-// GET /
-router.get("/", (req, res) => {
-	console.log("GET Home")
-	res.send("GET Home")
-})
-
-// Login
+// Send Login Information
 // POST /login
 router.post("/login", (req, res) => {
 	console.log(req.body)

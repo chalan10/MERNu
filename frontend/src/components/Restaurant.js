@@ -69,6 +69,13 @@ function Restaurant({ username, setUsername, password, setPassword, accountType,
 
 	// TODO: logout should probably make an api call instead of just pushing to history
 	// actually maybe not
+	function logout() {
+		setUsername("")
+		setPassword("")
+		setAccountType("")
+		history.push("/")
+	}
+
 	return(
 		<div className="restaurant">
 			<Router>
@@ -78,7 +85,7 @@ function Restaurant({ username, setUsername, password, setPassword, accountType,
 						if (route.path === "/") {
 							return(
 								<div className="sidebar-item" key={route.path}>
-									<Link to={route.path} onClick={() => history.push("/")}>
+									<Link to={route.path} onClick={() => logout()}>
 										{route.title}
 									</Link>
 								</div>

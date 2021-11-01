@@ -9,9 +9,14 @@ import "./App.css"
 function App() {
 	// TODO: keep state of currently logged in account info (relevant info)
 	// TODO: login not persisting: between pages it persists, but refreshing page wipes state
+	const [ username, setUsername ] = useState("")
+	const [ password, setPassword ] = useState("")
+	const [ accountType, setAccountType ] = useState("")
+	/*
 	const [ username, setUsername ] = useState("r")
 	const [ password, setPassword ] = useState("r")
 	const [ accountType, setAccountType ] = useState("restaurant")
+	*/
 	//const [ user, setUser ] = setState()
 
 	// TODO: remove navbar links once redirection works

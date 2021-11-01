@@ -30,6 +30,24 @@ function Login({ username, setUsername, password, setPassword, accountType, setA
 			.catch(err => console.log("Login Error", err))
 	}
 
+	function customerLogin() {
+		return(
+			<div className="customer-login">
+	   			<h2>Customer Login</h2>
+				<LoginForm handleLogin={handleLogin} />
+	   		</div>
+		)
+	}
+
+	function restaurantLogin() {
+		return(
+	   		<div className="restaurant-login">
+	   			<h2>Restaurant Login</h2>
+				<LoginForm handleLogin={handleLogin} />
+	   		</div>
+		)
+	}
+
 	return(
 		<div className="login">
 			<div className="login-type">
@@ -38,19 +56,8 @@ function Login({ username, setUsername, password, setPassword, accountType, setA
 				<button onClick={() => setType("restaurant")}>Restaurant</button>
 			</div>
 			
-			{type === "customer" &&
-				<div className="customer-login">
-	   				<h2>Customer Login</h2>
-					<LoginForm handleLogin={handleLogin} />
-	   			</div>
-			}
-
-			{type === "restaurant" &&
-	   			<div className="restaurant-login">
-	   				<h2>Restaurant Login</h2>
-					<LoginForm handleLogin={handleLogin} />
-	   			</div>
-			}
+			{type === "customer" && customerLogin()}
+			{type === "restaurant" && restaurantLogin()}
 
 	   		<Link to="/create">Create Account</Link>
 	   	</div>
