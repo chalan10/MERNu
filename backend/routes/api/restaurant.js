@@ -5,6 +5,7 @@ const Menu = require("../../models/Menu.js")
 const Restaurant = require("../../models/Restaurant.js")
 
 // TODO: /api/menu/:mid for when we have multiple menus
+// ^ no, keep it simple and only allow restaurants to have one menu
 // TODO: replace Menu with Category for readability
 // TODO: is it better for us to use :Xid for each restaurant, menu, category, item, etc
 // or is better to just use req.body?

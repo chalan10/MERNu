@@ -1,0 +1,43 @@
+.customer {
+	border: 5px solid coral;
+	height: 550px;
+	display: flex;
+}
+
+.sidebar {
+	background-color: pink;
+	border: 5px solid magenta;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+.sidebar-item {
+	background-color: coral;
+	border: 2px solid orange;
+	display: flex;
+}
+
+.sidebar-item:last-child {
+	margin-top: 90%;
+	background-color: red;
+}
+
+.sidebar-item a {
+	color: green;
+	text-decoration: none;
+	font-size: 24px;
+	width: 100%;
+	padding: 6px;
+}
+
+.sidebar-item a:hover {
+	background-color: purple;
+}
+
+.main {
+	background-color: skyblue;
+	border: 5px solid cyan;
+	display: flex;
+	flex: 1;
+}

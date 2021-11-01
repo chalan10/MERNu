@@ -35,7 +35,7 @@ function Restaurant({ username, setUsername, password, setPassword, accountType,
 		{
 			path: "/restaurant",
 			exact: true,
-			main: () => <Account username={username} />,
+			main: () => <Account username={username} accountType={accountType} />,
 			title: "Account"
 		},
 		{
@@ -80,7 +80,7 @@ function Restaurant({ username, setUsername, password, setPassword, accountType,
 		<div className="restaurant">
 			<Router>
 				<div className="sidebar">
-					<h2>Restaurant Name</h2>
+					<h2>{username}</h2>
 					{routes.map(route => {
 						if (route.path === "/") {
 							return(

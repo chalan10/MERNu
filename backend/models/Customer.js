@@ -2,19 +2,20 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
 const CustomerSchema = new Schema({
-	_id: String,
-	//_id: mongoose.Schema.Types.ObjectId,
-	//username: String,
+	_id: {
+		type: String,
+		required: true
+	},
 	password: {
 		type: String,
-		default: ""
+		required: true
 	},
 	name: {
 		type: String,
 		default: ""
 	}
-	//active
-	//history
+	//active: []
+	//history: []
 })
 
 module.exports = mongoose.model("Customer", CustomerSchema)
