@@ -19,6 +19,14 @@ const Restaurant = require("../../models/Restaurant.js")
 // and only use req.body to pull info? this way we would need to have client send all info
 // like the id of what we're adding/editing/removing
 
+// Get All Restaurants
+// GET /api/restaurant
+router.get("/", (req, res) => {
+	Restaurant.find()
+		.then(restaurants => res.send(restaurants))
+		.catch(err => console.log("Get Restaurant DB Error: Fetch Restaurant Error", err))
+})
+
 // Get Account Info
 // GET /api/restaurant/:rid
 router.get("/:rid", (req, res) => {

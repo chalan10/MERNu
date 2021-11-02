@@ -40,7 +40,7 @@ function Restaurant({ username, setUsername, password, setPassword, accountType,
 		},
 		{
 			path: "/restaurant/menu",
-			main: () => <Menu username={username} />,
+			main: () => <Menu rid={username} />,
 			title: "Menu"
 		},
 		{

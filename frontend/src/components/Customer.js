@@ -1,8 +1,9 @@
 import { BrowserRouter as Router, Switch, Route, Link, useHistory, Redirect } from "react-router-dom"
 import Account from "./Account.js"
+import Order from "./Order.js"
 import Active from "./Active.js"
 import History from "./History.js"
-import Cart from "./Cart.js"
+//import Cart from "./Cart.js"
 import "./Customer.css"
 
 function Customer({ username, setUsername, password, setPassword, accountType, setAccountType }) {
@@ -19,13 +20,11 @@ function Customer({ username, setUsername, password, setPassword, accountType, s
 			main: () => <Account username={username} accountType={accountType} />,
 			title: "Account"
 		},
-		/* Place Order
 		{
-			path: "/customer/menu",
-			main: () => <Menu username={username} />,
-			title: "Menu"
+			path: "/customer/order",
+			main: () => <Order username={username} />,
+			title: "Place Order"
 		},
-		*/
 		{
 			path: "/customer/active",
 			main: () => <Active />,
