@@ -6,17 +6,17 @@ const Menu = require("../../models/Menu.js")
 const Restaurant = require("../../models/Restaurant.js")
 
 // Get Account Info
-// GET /api/customer/:cid
-router.get("/:cid", (req, res) => {
-	Customer.findById(req.params.cid)
+// GET /api/customer/:catid
+router.get("/:catid", (req, res) => {
+	Customer.findById(req.params.catid)
 		.then(customer => res.send(customer))
 		.catch(err => console.log("Get Account DB Error: Find Customer Error", err))
 })
 
 // Edit Account Info
-// PUT /api/customer/:cid
-router.put("/:cid", (req, res) => {
-	Customer.findById(req.params.cid)
+// PUT /api/customer/:catid
+router.put("/:catid", (req, res) => {
+	Customer.findById(req.params.catid)
 		.then(customer => {
 			customer.name = req.body.name
 			customer.description = req.body.description

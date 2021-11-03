@@ -43,7 +43,7 @@ function CategoryForm({ menu, setMenu, menuCategory, toggleAddCategory, toggleEd
 		return (
 			<form
 				className="category-form"
-				onSubmit={(e) => handleCategorySubmit(e, { cid: menuCategory._id, name: name, description: description, items: menuCategory.items })}
+				onSubmit={(e) => handleCategorySubmit(e, { catid: menuCategory._id, name: name, description: description, items: menuCategory.items })}
 			>
 				<label>Category Name</label><br/>
 				<input

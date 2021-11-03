@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+//import Cart from "./Cart.js"
 import axios from "axios"
 //import "./OrderMenu.css"
 
@@ -12,7 +13,7 @@ import axios from "axios"
 // or just send user to a different page to review their order
 // and they can review and make their edits there?
 // we can have both where cart allows for quick review and edits and have it lead to a confirmation page after
-function OrderMenu({ username, rid }) {
+function OrderMenu({ username, rid, order, setOrder }) {
 	const [ menu, setMenu ] = useState([])
 
 	useEffect(() => {
@@ -20,6 +21,39 @@ function OrderMenu({ username, rid }) {
 			.then(res => setMenu(res.data.menu))
 			.catch(err => console.log("Fetch Menu Error", err))
 	}, [username, rid])
+
+	function addToOrder(menuItem) {
+		// TODO: item._id atm as we stick the entirety of menuItem in order
+		// change this to match our order schema later
+		if (order.items.some(item => item._id === menuItem._id)) {
+			setOrder({
+				...order,
+				items: order.items.map(item =>
+					item._id === menuItem._id ?
+					{ ...item, quantity: item.quantity + 1 } : item
+				),
+				total : order.total + menuItem.price
+			})
+			console.log("item already in order")
+		}
+		else {
+			setOrder({
+				...order,
+				items: [
+					...order.items,
+					{
+						_id: menuItem._id,
+						name: menuItem.name,
+						price: menuItem.price,
+						quantity: 1
+					}
+				],
+				total: order.total + menuItem.price
+			})
+			console.log("item added to order")
+		}
+		console.log(order) // TODO: seems to be behind by one, might be due to setState's async
+	}
 
 	return(
 		<div className="menu">
@@ -37,6 +71,9 @@ function OrderMenu({ username, rid }) {
 								{menuItem.name}<br/>
 								{menuItem.description}<br/>
 								${menuItem.price}<br/>
+								<button onClick={() => addToOrder(menuItem)}>
+									Add to Order
+								</button>
 							</div>
 						))}
 					</div>

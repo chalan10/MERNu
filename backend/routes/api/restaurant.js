@@ -65,11 +65,11 @@ router.post("/:rid/category", (req, res) => {
 })
 
 // Edit Category
-// PUT /api/restaurant/:rid/category/:cid
-router.put("/:rid/category/:cid", (req, res) => {
+// PUT /api/restaurant/:rid/category/:catid
+router.put("/:rid/category/:catid", (req, res) => {
 	Restaurant.findById(req.params.rid)
 		.then(restaurant => {
-			const category = restaurant.menu.id(req.params.cid)
+			const category = restaurant.menu.id(req.params.catid)
 			category.name = req.body.name
 			category.description = req.body.description
 			restaurant.save()
@@ -80,11 +80,11 @@ router.put("/:rid/category/:cid", (req, res) => {
 })
 
 // Delete Category
-// DELETE /api/restaurant/:rid/category/:cid
-router.delete("/:rid/category/:cid", (req, res) => {
+// DELETE /api/restaurant/:rid/category/:catid
+router.delete("/:rid/category/:catid", (req, res) => {
 	Restaurant.findById(req.params.rid)
 		.then(restaurant => {
-			restaurant.menu.id(req.params.cid).remove()
+			restaurant.menu.id(req.params.catid).remove()
 			restaurant.save()
 				.catch(err => console.log("Delete Category DB Error: Save Error", err))
 		})
@@ -92,13 +92,13 @@ router.delete("/:rid/category/:cid", (req, res) => {
 })
 
 // Add Item
-// POST /api/restaurant/:rid/category/:cid/item
-router.post("/:rid/category/:cid/item", (req, res) => {
+// POST /api/restaurant/:rid/category/:catid/item
+router.post("/:rid/category/:catid/item", (req, res) => {
 	Restaurant.findById(req.params.rid)
 		.then(restaurant => {
 			const newItem = req.body
 			newItem._id = new mongoose.Types.ObjectId()
-			restaurant.menu.id(req.params.cid).items.push(newItem)
+			restaurant.menu.id(req.params.catid).items.push(newItem)
 			restaurant.save()
 				.then(res.send(newItem))
 				.catch(err => console.log("Add Item DB Error: Save Error", err))
@@ -107,11 +107,11 @@ router.post("/:rid/category/:cid/item", (req, res) => {
 })
 
 // Edit Item
-// PUT /api/restaurant/:rid/category/:cid/item/:iid
-router.put("/:rid/category/:cid/item/:iid", (req, res) => {
+// PUT /api/restaurant/:rid/category/:catid/item/:iid
+router.put("/:rid/category/:catid/item/:iid", (req, res) => {
 	Restaurant.findById(req.params.rid)
 		.then(restaurant => {
-			const item = restaurant.menu.id(req.params.cid).items.id(req.params.iid)
+			const item = restaurant.menu.id(req.params.catid).items.id(req.params.iid)
 			item.name = req.body.name
 			item.description = req.body.description
 			item.price = req.body.price
@@ -124,11 +124,11 @@ router.put("/:rid/category/:cid/item/:iid", (req, res) => {
 })
 
 // Delete Item
-// DELETE /api/restaurant/:rid/category/:cid/item/:iid
-router.delete("/:rid/category/:cid/item/:iid", (req, res) => {
+// DELETE /api/restaurant/:rid/category/:catid/item/:iid
+router.delete("/:rid/category/:catid/item/:iid", (req, res) => {
 	Restaurant.findById(req.params.rid)
 		.then(restaurant => {
-			restaurant.menu.id(req.params.cid).items.id(req.params.iid).remove()
+			restaurant.menu.id(req.params.catid).items.id(req.params.iid).remove()
 			restaurant.save()
 				.catch(err => console.log("Delete Item DB Error: Save Error", err))
 		})

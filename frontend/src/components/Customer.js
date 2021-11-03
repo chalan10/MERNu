@@ -3,7 +3,6 @@ import Account from "./Account.js"
 import Order from "./Order.js"
 import Active from "./Active.js"
 import History from "./History.js"
-//import Cart from "./Cart.js"
 import "./Customer.css"
 
 function Customer({ username, setUsername, password, setPassword, accountType, setAccountType }) {

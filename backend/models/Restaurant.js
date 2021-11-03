@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 const ItemSchema = new Schema({
 	_id: mongoose.Schema.Types.ObjectId,
-	cid: mongoose.Schema.Types.ObjectId,
+	catid: mongoose.Schema.Types.ObjectId,
 	name: {
 		type: String,
 		required: true
@@ -14,7 +14,7 @@ const ItemSchema = new Schema({
 	},
 	price: {
 		type: Number,
-		default: 0
+		default: 0.0
 	}
 })
 

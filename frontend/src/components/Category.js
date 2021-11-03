@@ -8,9 +8,8 @@ function Category({ menu, setMenu, menuCategory, toggleEditCategory, deleteCateg
 	return (
 		<div className="category">
 			<div className="category-header">
-				<h2>
-					{menuCategory.name}
-				</h2>
+				<h2>{menuCategory.name}</h2>
+				<p>{menuCategory.description}</p>
 				<EditCategory
 					menu={menu}
 					setMenu={setMenu}
@@ -20,20 +19,18 @@ function Category({ menu, setMenu, menuCategory, toggleEditCategory, deleteCateg
 					handleCategorySubmit={handleCategorySubmit}
 				/>
 			</div>
-			{menuCategory.items.map(menuItem => {
-				return (
-					<Item
-						key={menuItem._id}
-						menu={menu}
-						setMenu={setMenu}
-						menuCategory={menuCategory}
-						menuItem={menuItem}
-						toggleEditItem={toggleEditItem}
-						deleteItem={deleteItem}
-						handleItemSubmit={handleItemSubmit}
-					/>
-				)
-			})}
+			{menuCategory.items.map(menuItem => (
+				<Item
+					key={menuItem._id}
+					menu={menu}
+					setMenu={setMenu}
+					menuCategory={menuCategory}
+					menuItem={menuItem}
+					toggleEditItem={toggleEditItem}
+					deleteItem={deleteItem}
+					handleItemSubmit={handleItemSubmit}
+				/>
+			))}
 			<AddItem
 				menu={menu}
 				setMenu={setMenu}

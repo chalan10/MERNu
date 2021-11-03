@@ -9,6 +9,9 @@ import "./App.css"
 function App() {
 	// TODO: keep state of currently logged in account info (relevant info)
 	// TODO: login not persisting: between pages it persists, but refreshing page wipes state
+	// TODO: do we want to keep track of customer current order/cart in between sessions in case they want
+	// to come back to it later? atm customer carts are client side so if customer refreshes page/logs out/etc
+	// before placing their order, all progress will be lost
 	const [ username, setUsername ] = useState("")
 	const [ password, setPassword ] = useState("")
 	const [ accountType, setAccountType ] = useState("")
