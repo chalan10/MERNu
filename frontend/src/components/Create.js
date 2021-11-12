@@ -13,8 +13,16 @@ function Create() {
 			password: data.password,
 			type: data.type
 		}
-		axios.post("http://localhost:5000/create", newAccount)
-			.then(history.push("/"))
+		axios.post(`http://localhost:5000/create/${data.type}`, newAccount)
+			.then(res => {
+				console.log(res.data)
+				if (res.data.success) {
+					history.push("/")
+				}
+				else {
+					alert(res.data.msg)
+				}
+			})
 			.catch(err => console.log("Account Creation Error", err))
 	}
 

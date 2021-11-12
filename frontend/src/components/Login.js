@@ -15,16 +15,20 @@ function Login({ username, setUsername, password, setPassword, accountType, setA
 			password: data.password,
 			type: type
 		}
-		axios.post("http://localhost:5000/login", loginInfo)
+		axios.post(`http://localhost:5000/login/${type}`, loginInfo)
 			.then(res => {
-				if (res.data === "success") {
+				console.log("token", res.data)
+				if (res.data.success) {
 					setUsername(data.username)
 					setPassword(data.password)
 					setAccountType(type)
+					// TODO: are we going to need to have separate api calls for each user in backend?
+					// idk if just pushing to a generic /customer or /restaurant page works
+					// rn it works by doing that and just displaying correct info from db according to user id
 					history.push(`/${type}`)
 				}
 				else {
-					alert("failure")
+					alert(res.data.msg)
 				}
 			})
 			.catch(err => console.log("Login Error", err))
