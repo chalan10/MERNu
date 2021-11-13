@@ -1,9 +1,10 @@
 const express = require("express")
 const mongoose = require("mongoose")
 const router = express.Router()
+
 const Customer = require("../../models/Customer.js")
-const Menu = require("../../models/Menu.js")
-const Restaurant = require("../../models/Restaurant.js")
+//const Menu = require("../../models/Menu.js")
+//const Restaurant = require("../../models/Restaurant.js")
 
 // Get Account Info
 // GET /api/customer/:catid

@@ -23,16 +23,16 @@ mongoose
 	.then(() => console.log("MongoDB Connected"))
 	.catch(err => console.log(err))
 
+// Passport Config
+require("./config/passport.js")(passport)
+
 // Passport Middleware
 app.use(passport.initialize())
 
-// Passport Config
-require("./config/passport.js")
-
 // Routes
 app.use("/", require("./routes/index.js"))
-app.use("/api/customer", require("./routes/api/customer.js"))
-app.use("/api/restaurant", require("./routes/api/restaurant.js"))
+app.use("/api/customer", passport.authenticate("jwt", { session: false }), require("./routes/api/customer.js"))
+app.use("/api/restaurant", passport.authenticate("jwt", { session: false }), require("./routes/api/restaurant.js"))
 
 const PORT = process.env.PORT || 5000
 

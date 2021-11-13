@@ -6,10 +6,18 @@ import "./Login.css"
 
 function Login({ username, setUsername, password, setPassword, accountType, setAccountType }) {
 	const history = useHistory()
+
+	if (localStorage.username) {
+		// TODO: 401 every time we try to go to home page, what do?
+		history.push(`/${localStorage.type}`)
+	}
+
 	const [ type, setType ] = useState()
 
 	function handleLogin(e, data) {
 		e.preventDefault()
+		// TODO: shouldn't need to store password; remove it later
+		// can replace this with jwt token once done
 		const loginInfo = {
 			username: data.username,
 			password: data.password,
@@ -17,7 +25,7 @@ function Login({ username, setUsername, password, setPassword, accountType, setA
 		}
 		axios.post(`http://localhost:5000/login/${type}`, loginInfo)
 			.then(res => {
-				console.log("token", res.data)
+				console.log("server response", res.data)
 				if (res.data.success) {
 					setUsername(data.username)
 					setPassword(data.password)
@@ -25,6 +33,21 @@ function Login({ username, setUsername, password, setPassword, accountType, setA
 					// TODO: are we going to need to have separate api calls for each user in backend?
 					// idk if just pushing to a generic /customer or /restaurant page works
 					// rn it works by doing that and just displaying correct info from db according to user id
+					localStorage.setItem("jwtToken", res.data.token)
+					// TODO: for now, storing username and type, find a better way to do this though
+					localStorage.setItem("username", res.data.username)
+					localStorage.setItem("type", res.data.type)
+					if (res.data.token) {
+						axios.defaults.headers.common["Authorization"] = res.data.token
+					}
+					else {
+						delete axios.defaults.headers.common["Authorization"]
+					}
+					//check for expire
+					//decode jwt
+					//set current user
+					
+					// TODO: change how we redirect to customer page rather than just pushing?
 					history.push(`/${type}`)
 				}
 				else {

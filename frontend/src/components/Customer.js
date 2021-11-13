@@ -45,6 +45,9 @@ function Customer({ username, setUsername, password, setPassword, accountType, s
 		setUsername("")
 		setPassword("")
 		setAccountType("")
+		localStorage.removeItem("jwtToken")
+		localStorage.removeItem("username")
+		localStorage.removeItem("type")
 		history.push("/")
 	}
 

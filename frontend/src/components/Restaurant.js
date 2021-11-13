@@ -73,6 +73,9 @@ function Restaurant({ username, setUsername, password, setPassword, accountType,
 		setUsername("")
 		setPassword("")
 		setAccountType("")
+		localStorage.removeItem("jwtToken")
+		localStorage.removeItem("username")
+		localStorage.removeItem("type")
 		history.push("/")
 	}
 

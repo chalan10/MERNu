@@ -1,10 +1,29 @@
 import { useState/*, useEffect*/ } from "react"
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom"
+//import axios from "axios"
 import Login from "./components/Login.js"
 import Create from "./components/Create.js"
 import Customer from "./components/Customer.js"
 import Restaurant from "./components/Restaurant.js"
 import "./App.css"
+
+/* TODO: not sure if we need this
+if (localStorage.jwtToken) {
+	//const token = localStorage.jwtToken
+	//setAuthToken(token)
+	if (localStorage.jwtToken) {
+		axios.defaults.headers.common["Authorization"] = localStorage.jwtToken
+	}
+	else {
+		delete axios.defaults.headers.common["Authorization"]
+	}
+	//decode jwt for user info
+	//set user info
+	//setUsername(localStorage.username)
+	//setAccountType(localStorage.type)
+	// check for expired token and redirect if invalid or expired
+}
+*/
 
 function App() {
 	// TODO: keep state of currently logged in account info (relevant info)
@@ -12,15 +31,9 @@ function App() {
 	// TODO: do we want to keep track of customer current order/cart in between sessions in case they want
 	// to come back to it later? atm customer carts are client side so if customer refreshes page/logs out/etc
 	// before placing their order, all progress will be lost
-	const [ username, setUsername ] = useState("")
+	const [ username, setUsername ] = useState(localStorage.username)
 	const [ password, setPassword ] = useState("")
-	const [ accountType, setAccountType ] = useState("")
-	/*
-	const [ username, setUsername ] = useState("r")
-	const [ password, setPassword ] = useState("r")
-	const [ accountType, setAccountType ] = useState("restaurant")
-	*/
-	//const [ user, setUser ] = setState()
+	const [ accountType, setAccountType ] = useState(localStorage.type)
 
 	// TODO: remove navbar links once redirection works
 	return(

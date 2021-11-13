@@ -6,6 +6,11 @@ import "./Create.css"
 function Create() {
 	const history = useHistory()
 
+	if (localStorage.username) {
+		// TODO: 401 every time we try to go to home page, what do?
+		history.push(`/${localStorage.type}`)
+	}
+
 	function handleSubmit(e, data) {
 		e.preventDefault()
 		const newAccount = {
