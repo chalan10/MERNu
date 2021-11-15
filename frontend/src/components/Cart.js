@@ -1,13 +1,13 @@
-import React from "react"
+import { useState } from "react"
+//import axios from "axios"
+import "./Cart.css"
 
-class Cart extends React.Component {
-	render() {
-		return(
-			<div>
-				<h2>Cart</h2>
-			</div>
-		);
-	}
+function Cart({}) {
+	return(
+		<div>
+			<h2>Cart</h2>
+		</div>
+	)
 }
 
-export default Cart;
+export default Cart

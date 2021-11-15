@@ -5,10 +5,10 @@ import Active from "./Active.js"
 import History from "./History.js"
 import "./Customer.css"
 
-function Customer({ username, setUsername, password, setPassword, accountType, setAccountType }) {
+function Customer({ username,/* setUsername,*/ name, setName, password, setPassword, type, setType, logout }) {
 	const history = useHistory()
 
-	if (accountType !== "customer") {
+	if (type !== "customer") {
 		return <Redirect to="/" />
 	}
 
@@ -16,7 +16,7 @@ function Customer({ username, setUsername, password, setPassword, accountType, s
 		{
 			path: "/customer",
 			exact: true,
-			main: () => <Account username={username} accountType={accountType} />,
+			main: () => <Account username={username} name={name} setName={setName} type={type} />,
 			title: "Account"
 		},
 		{
@@ -41,21 +41,11 @@ function Customer({ username, setUsername, password, setPassword, accountType, s
 		}
 	]
 
-	function logout() {
-		setUsername("")
-		setPassword("")
-		setAccountType("")
-		localStorage.removeItem("jwtToken")
-		localStorage.removeItem("username")
-		localStorage.removeItem("type")
-		history.push("/")
-	}
-
 	return(
 		<div className="customer">
 			<Router>
 				<div className="sidebar">
-					<h2>{username}</h2>
+					<h2>{name}</h2>
 					{routes.map(route => {
 						if (route.path === "/") {
 							return(

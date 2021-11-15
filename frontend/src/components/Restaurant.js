@@ -7,7 +7,7 @@ import Active from "./Active.js"
 import History from "./History.js"
 import "./Restaurant.css"
 
-function Restaurant({ username, setUsername, password, setPassword, accountType, setAccountType }) {
+function Restaurant({ username, setUsername, name, setName, password, setPassword, type, setType, logout }) {
 	// TODO: should we store state here or in each comp?
 	// we would have to fetch each time we navigate between the pages
 	// in case there was a change
@@ -25,7 +25,7 @@ function Restaurant({ username, setUsername, password, setPassword, accountType,
 	// Redirect if not logged in or not a restaurant account
 	// TODO: might need to check for actual authenticity
 	// aka is this an actual valid login
-	if (accountType !== "restaurant") {
+	if (type !== "restaurant") {
 		return <Redirect to="/" />
 	}
 
@@ -35,7 +35,7 @@ function Restaurant({ username, setUsername, password, setPassword, accountType,
 		{
 			path: "/restaurant",
 			exact: true,
-			main: () => <Account username={username} accountType={accountType} />,
+			main: () => <Account username={username} name={name} setName={setName} type={type} />,
 			title: "Account"
 		},
 		{
@@ -67,23 +67,11 @@ function Restaurant({ username, setUsername, password, setPassword, accountType,
 	}
 	*/
 
-	// TODO: logout should probably make an api call instead of just pushing to history
-	// actually maybe not
-	function logout() {
-		setUsername("")
-		setPassword("")
-		setAccountType("")
-		localStorage.removeItem("jwtToken")
-		localStorage.removeItem("username")
-		localStorage.removeItem("type")
-		history.push("/")
-	}
-
 	return(
 		<div className="restaurant">
 			<Router>
 				<div className="sidebar">
-					<h2>{username}</h2>
+					<h2>{name}</h2>
 					{routes.map(route => {
 						if (route.path === "/") {
 							return(

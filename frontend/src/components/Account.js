@@ -3,21 +3,20 @@ import axios from "axios"
 import AccountForm from "./AccountForm.js"
 import "./Account.css"
 
-function Account({ username, accountType }) {
-	const [ name, setName ] = useState()
+function Account({ username, name, setName, type }) {
 	// TODO: customers will have blank descriptions that won't be displayed
 	// or should we make sure that they don't at all?
 	const [ description, setDescription ] = useState()
 	const [ edit, setEdit ] = useState(false)
 
 	useEffect(() => {
-		axios.get(`http://localhost:5000/api/${accountType}/${username}`)
+		axios.get(`http://localhost:5000/api/${type}/${username}`)
 			.then(res => {
 				setName(res.data.name)
 				setDescription(res.data.description)
 			})
 			.catch(err => console.log("Fetch Account Error", err))
-	}, [username, accountType])
+	}, [username, type])
 
 	function handleSubmit(e, data) {
 		e.preventDefault()
@@ -25,7 +24,7 @@ function Account({ username, accountType }) {
 			name: data.name,
 			description: data.description
 		}
-		axios.put(`http://localhost:5000/api/${accountType}/${username}`, editedAccount)
+		axios.put(`http://localhost:5000/api/${type}/${username}`, editedAccount)
 			.then(res => {
 				setName(data.name)
 				setDescription(data.description)
@@ -40,6 +39,7 @@ function Account({ username, accountType }) {
 			<button onClick={() => setEdit(!edit)}>Edit</button>
 			{edit ?
 				<AccountForm
+					type={type}
 					edit={edit}
 					setEdit={setEdit}
 					name={name}
@@ -51,7 +51,7 @@ function Account({ username, accountType }) {
 					Name:<br/>
 					{name}
 					<br/><br/>
-				{accountType === "restaurant" &&
+				{type === "restaurant" &&
 					<div>
 						Description:<br/>
 						{description}

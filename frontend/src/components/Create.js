@@ -15,6 +15,7 @@ function Create() {
 		e.preventDefault()
 		const newAccount = {
 			username: data.username,
+			name: data.name,
 			password: data.password,
 			type: data.type
 		}

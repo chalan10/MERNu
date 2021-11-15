@@ -35,6 +35,7 @@ router.post("/login/customer", (req, res) => {
 						res.send({
 							success: true,
 							username: req.body.username,
+							name: customer.name,
 							type: req.body.type,
 							token: "Bearer " + token
 						})
@@ -72,6 +73,7 @@ router.post("/login/restaurant", (req, res) => {
 						res.send({
 							success: true,
 							username: req.body.username,
+							name: restaurant.name,
 							type: req.body.type,
 							token: "Bearer " + token
 						})
