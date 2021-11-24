@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch, Route, Link, useHistory, Redirect } from "react-router-dom"
+import { BrowserRouter as Router, Switch, Route, Link,/* useHistory,*/ Redirect } from "react-router-dom"
 import Account from "./Account.js"
 import Order from "./Order.js"
 import Active from "./Active.js"
@@ -6,7 +6,7 @@ import History from "./History.js"
 import "./Customer.css"
 
 function Customer({ username,/* setUsername,*/ name, setName, password, setPassword, type, setType, logout }) {
-	const history = useHistory()
+//	const history = useHistory()
 
 	if (type !== "customer") {
 		return <Redirect to="/" />

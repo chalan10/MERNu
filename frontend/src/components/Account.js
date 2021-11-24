@@ -16,7 +16,7 @@ function Account({ username, name, setName, type }) {
 				setDescription(res.data.description)
 			})
 			.catch(err => console.log("Fetch Account Error", err))
-	}, [username, type])
+	}, [username, type, setName])
 
 	function handleSubmit(e, data) {
 		e.preventDefault()

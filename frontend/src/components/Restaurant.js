@@ -1,5 +1,5 @@
 //import { useState, useEffect } from "react"
-import { BrowserRouter as Router, Switch, Route, Link, useHistory, Redirect } from "react-router-dom"
+import { BrowserRouter as Router, Switch, Route, Link,/* useHistory,*/ Redirect } from "react-router-dom"
 //import axios from "axios"
 import Account from "./Account.js"
 import Menu from "./Menu.js"
@@ -20,7 +20,7 @@ function Restaurant({ username, setUsername, name, setName, password, setPasswor
 	// the info the other ones have and having one parent state would be outdated
 	// and we'd have to update it everytime
 
-	const history = useHistory()
+//	const history = useHistory()
 
 	// Redirect if not logged in or not a restaurant account
 	// TODO: might need to check for actual authenticity
