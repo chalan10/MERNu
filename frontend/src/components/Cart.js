@@ -1,7 +1,7 @@
 import CartItem from "./CartItem.js"
 import "./Cart.css"
 
-function Cart({ order, removeFromOrder, incrementQuantity, decrementQuantity, cancelOrder }) {
+function Cart({ order, removeFromOrder, incrementQuantity, decrementQuantity, cancelOrder, submitOrder }) {
 	return(
 		<div className="cart">
 			<h2>Cart</h2>
@@ -16,7 +16,7 @@ function Cart({ order, removeFromOrder, incrementQuantity, decrementQuantity, ca
 			))}
 			<b>Order Total:</b> {Math.abs(order.total).toFixed(2)}<br/>
 			<button onClick={() => cancelOrder()}>Cancel Order</button>
-			<button>Place Order</button>
+			<button onClick={() => submitOrder()}>Submit Order</button>
 		</div>
 	)
 }

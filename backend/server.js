@@ -3,6 +3,9 @@ const cors = require("cors")
 const mongoose = require("mongoose")
 const bodyParser = require("body-parser")
 const passport = require("passport")
+const dotenv = require("dotenv")
+
+dotenv.config()
 
 const customer = require("./routes/api/customer.js")
 const restaurant = require("./routes/api/restaurant.js")
@@ -15,7 +18,7 @@ app.use(cors())
 app.use(bodyParser.json())
 
 // DB Config
-const db = require("./config/config.js").MONGO_URI
+const db = process.env.MONGO_URI
 
 // Connect to MongoDB
 mongoose

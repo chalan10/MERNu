@@ -92,6 +92,7 @@ function Order({ username }) {
 				incrementQuantity={incrementQuantity}
 				decrementQuantity={decrementQuantity}
 				cancelOrder={cancelOrder}
+				submitOrder={submitOrder}
 			/>
 		)
 	}
@@ -177,6 +178,10 @@ function Order({ username }) {
 		if (order.items.length > 0 && window.confirm("Cancel order?")) {
 			setOrder(emptyCart)
 		}
+	}
+
+	function submitOrder() {
+		console.log("Order submitted!", order)
 	}
 
 	return(

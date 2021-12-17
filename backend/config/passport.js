@@ -7,7 +7,7 @@ const Restaurant = require("../models/Restaurant.js")
 
 const opts = {}
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken()
-opts.secretOrKey = "secret"
+opts.secretOrKey = process.env.SECRETORKEY
 
 // TODO: we are currently trying to make the routes for customer and restaurant protected
 // TODO: separate todo- add passport-local for login/register?, maybe store it in localStorage
